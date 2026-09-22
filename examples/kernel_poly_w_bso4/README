@@ -1,0 +1,17 @@
+BEFORE please extract the DB:
+
+tar -zxvf DB.tgz
+
+
+This test is discussed on milady webpage. If your test pass please compare your results with OUT_xx files.
+
+OUT_xx are created by the sequence:
+
+cp vacancy.ml_01 vacancy.ml
+milady_main.exe  > OUT_01
+
+cp vacancy.ml_02 vacancy.ml
+milady_main.exe  > OUT_02
+
+cp vacancy.ml_03 vacancy.ml
+milady_main.exe  > OUT_03

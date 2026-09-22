@@ -1,0 +1,31 @@
+# nchannels nelements element_1 weight_1_for_el_1 weight_2_for_el_1 element_2 weight_1_for_el_2 weight_2_for_el_2 ... etc 
+# descriptor type, nparameters_descriptor, ndetails
+# mass_1 mass_2 ... mass_nelements
+# detail_1 is the mld_order, ..., detail_ndetails (e.g. mld_order no_of_radial_channels no_of_angular_channels)
+# r_cut only one for all descriptors
+# w_i  with i=1, dim_xdesc, dim_xdesc +1 ...  (nchannel-1)*dim_xdesc ... nchannel*dim_xdesc
+      1      1  W     0.1000000000E+01    0.1000000000E+01    0.0000000000E+00
+              5.9998
+   1.142368824527944E+000
+  -6.249295186020553E+000
+   7.402100533149522E+000
+   5.245944739380890E+000
+  -2.378441283042456E+000
+  -7.064612966415184E+000
+  -3.203306760438451E+000
+   1.265986325586653E+000
+   6.835492594048637E-002
+   2.157120090382013E-003
+   9.372509691271137E-004
+   3.441764948396420E-003
+   4.518910162637403E-002
+  -4.449911815951005E-002
+   1.890088286687248E-001
+   1.278076743558942E-001
+   2.032758909647579E-002
+  -2.484072080373104E-002
+   3.079242029641299E-001
+  -4.110671267525180E-002
+   3.203185418574749E-003
+   1.050557615796369E-002
+  -1.912174699164334E-002

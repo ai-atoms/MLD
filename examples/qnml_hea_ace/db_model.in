@@ -1,0 +1,8 @@
+# @ Elasticity: C11, C22, C33; equimolar Ta-Ti-V-W
+11  001  4 3  T F F   1.e2 1.e0 1.e0 1.e0 1.e0 1.e0
+# @ MD at 2500K; equimolar Ta-Ti-V-W
+20  001  4 3  T T F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# @ MD liquid at 2500K, 1500K, 1000K;
+28  001  4 3  T T F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# @ MD bcc/liquid interphase at 2500K; 1500K, 1000K;
+29  001  4 3  T T F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0

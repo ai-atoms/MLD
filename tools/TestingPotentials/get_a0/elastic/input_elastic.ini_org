@@ -1,0 +1,244 @@
+#ELASTIC arguments ....
+# 
+#  mode     - 'vasp', 'ndm', 'phondy' , 'pwscf', for the elastic constants; The lattice parameter should be provided 
+# structure - 'bcc', 'fcc', 'c15', 'gin'
+# typerun   - 'build'   (just preparing files) ; 
+#             'run'     (just running the prepared files) ; 
+#             'extract' (extract the output, once the 'run' is finished ) ; 
+#             'all'     do ALL :) three previous  steps. Should be used in interactive sessions, as mycomputer mode.          
+# cluster  - 'my_computer', 'curie', 'occigen', 'zelda', 'irene'
+[Common]
+
+debug=4
+#mode=vasp
+mode=lammps
+#typerun=build
+#typerun=run
+typerun=extract
+cluster=my_computer
+#cluster=irene
+#first guess of the lattice parameter - cubic unit cell for bcc,  fcc  and c15
+# (internal) float a 
+
+#Mendelev AM04
+#c15_test a_guess = 6.66341
+#c15_test structure=c15
+#bcc_test structure=bcc
+#a_guess=2.84676
+#a_guess=2.8553
+#bcc_test structure=bcc
+#fcc_test a_guess=3.65844
+#fcc_test structure=fcc
+
+#structure=gin
+structure=MY_STRUCTURE
+#a_guess=2.8553
+a_guess = MY_GUESS
+#a_guess=2.851
+#Cu Mishin , ADP a_guess=3.61491
+
+#Al Liu with LAMMPS
+#fcc_test a_guess=4.03199
+#fcc_test structure=fcc
+
+#Al Mendelev 2007
+#a_guess=4.04527
+#structure=fcc
+#Al MEAM Jelineck
+#structure = fcc
+
+#structure=gin
+#a_guess=4.05
+
+#a_guess=16.20
+#structure=gin
+
+
+#a_guess=12.68836
+#structure=gin
+
+# calc_elas - 'c11' for c11 and c12 only ; 
+#             'c44' for c44 only ; 
+#             'cxx' means that all 3 constats are computed
+#             'polar'  polarizability for one defect. Is compatible only with the mode gin. 
+#                      The configuration 'gin' should be provided.
+#             'bulk'
+#             'qha_bulk'
+#             'qha_cxx'
+#                      
+
+cal_elas=cxx
+#cal_elas=qha_bulk
+dynamics=min
+aneto=no
+# bulk_deform is active in the case of polar. 
+# no    if the the elastic energy is  computed only  as 1/2 C_ijkl epsilon_ij epsilon_kl
+# yes   if the the elastic energy is  computed only  as difference between E_bulk( epsilon) - E_bulk (0) 
+bulk_deform=yes
+
+#occigen
+#nodes=2
+#ntasks=-240
+
+nodes=1
+ntasks=4
+cpu_per_task=1
+runtime=1200
+#den, genden, 
+project=genden
+queue=test
+#npools number of pools in PWSCF or number of K-point parallelization in VASP, KPAR parameter 
+npools=4  
+#type_node - type of the node 
+# on irene has only the values:
+#        milan 
+#        rome 
+#        skylake
+#if test  queue=test
+#if runtime = 1700 
+#if project 
+#type_node=rome
+type_node=rome
+prefix=febcc
+
+
+#nt_strain - Number of diffrent strains
+# (internal) int nt_strain
+nt_strain = 12
+# percent_for_strain_(min or max) percentage of strain
+#    (internal) float perc_strain_min, perc_strain_max
+percent_for_strain_min=-0.8
+percent_for_strain_max=0.8
+
+
+
+
+
+
+[Elastic]
+
+#the is a good list of deformations in the case of polar mode:
+#list_of_deformations= 1 2 3 4 5 6 7 
+#this is a good list of deformation in the case of qha_cxx mode:
+list_of_deformations= 1 2 3 4 5 6 7 8 
+#list_of_deformations= 3 103
+# This work by tuples (deformation size
+list_of_deformations_nostandard= 3 0.2
+#values of the elastic constants, in GPa,  determined previously ...
+
+# Al Zhou ADP ... 
+#c11=112.99731
+#c12=60.728310
+#c44=31.629745
+
+# Al Mendelev 
+#c11=110.686792
+#c12=61.777769
+#c44=32.60254
+
+
+#Cxx for Al Liu:
+c11=120.392762
+c12=64.112942
+c44=33.038061 
+
+#zero limit for numerical errors. I.e. and value for sigma < limit_sigma is promoted ti sigma=0
+limit_sigma=1e-5
+
+
+
+
+[Qha]
+
+
+#Begin ACTIVE only in VASP + QHA---------VASP ONLY---------------
+#type_exe_system -- useful only in the case QHA and VASP-
+#                  defect  if the system is a supercell containing a defect--
+#                  bulk    if the system is a supercell with perfect crystal symmetry---
+type_exe_system=bulk
+list_of_disp= 200
+
+
+# which are the deformations which are computed. Sometimes the number of displacements for each deformation and strain  to compute 
+# is so large that there we are limited in the number of jobs in queue (typically 150) 
+nt_strain_min=8
+nt_strain_max=10
+#if the bulk is computed or not
+#  0 - no
+#  1 - yes 
+nt_bulk_run=0
+
+
+# packend many calculation in the same jsub. I. e. perform pack_disp_size calculations in the same jsub. 
+pack_disp_size=20 
+#End ACTIVE only in the case VASP + QHA----------VASP ONLY--------
+
+# perc_vol_min - min percentage of strain
+# perc_vol_max - min percentage of strain
+#    (internal) float perc_vol_min
+# nt_vol       - Number diffrent volumes
+#    (internal) int nt_vol
+#    (internal) float perc_vol_max
+#    (internal) float perc_vol_min
+percent_vol_min=-0.4 
+percent_vol_max=1.2
+# temp_min   - min temperature
+# temp_max   - max temperature
+# nt_temp    - number of points in temperature
+temp_min=1.0
+temp_max=1800.0
+nt_temp=200
+
+limit_omega=0.1
+# relaxation - yes or not 
+#            - 'yes' for defects, strange structures
+#            - 'no'  for bcc, fcc, one atom / cell structures.
+relaxation=yes
+
+#For mix mode minimization and phonons. E.g. do minimization using 
+#lammps and phonons with phondy.
+# pure ndm - 'ndm'
+# lammps - 'lammps'
+# phondy with ndm - 'phondy-ndm'
+# phondy with lammps in binding - 'phondy-lammps'
+#qha_minmode=lammps
+qha_minmode=lammps
+qha_phmode=phondy-ndm
+#if the relaxation is executed or not ...
+#minexe_ph=/home/marinica/NDM/p2.8/rundm90_ml_para
+
+minexe_ph=/home/marinica/GitHub/mcm_milady_lammps.git/src/lmp_mpi
+gin_to_lammps=/home/marinica/CalcPP/LAMMPS/gin_to_lammps.py
+lammps_to_gin=/home/marinica/CalcPP/LAMMPS/lammps_to_gin.py 
+
+mininput_ph=/home/marinica/CalcPP/LAMMPS/lammps_min_fire_Fe_MILADY.in
+phinput_ph=/home/marinica/CalcPP/LAMMPS/PHONDY_in.lammps_Fe_MILADY
+minpot01_ph=/home/marinica/CalcPP/pot_lammps/lammps_bso4_snap1_params.pot
+minpot02_ph=/home/marinica/CalcPP/pot_lammps/lammps_bso4_snap1_params.pot
+
+
+[NDM]
+eampot=/home/marinica/Flow/INPUT/eamtab.potin_M2EX_25p_new
+ndmexe=/home/marinica/NDM/p2.8/rundm90_ml_para
+ndmexe_ph=/home/marinica/NDM/p2.8/rundm90_phondy_para_lammps
+input_din_min=/home/marinica/CalcPP/NDM/cube.din_min_EAM
+input_din_ph=/home/marinica/CalcPP/NDM/PHONDY/cube.din_ph
+input_ml=/home/marinica/Work_ML/debug_descriptors/lml_vacancy.ml
+
+[PWSCF]
+
+[LAMMPS]
+
+input_dirLAMMPS=LAMMPS
+lammps_exe= MY_EXE_LAMMPS
+input_potcar= MY_MLD_POT
+input_incar=lammps_input.in
+
+[Vasp]
+input_dirVASP=VASP
+input_potcar=POTCAR.vasp
+input_incar=INCAR.vasp
+input_kpoints=KPOINTS.vasp
+
+
+

@@ -1,0 +1,161 @@
+[32m[INFO    ] mld_mpi_init ! hello world ! from rank 0 of 1 [0m
+[32m[INFO    ] 
+                       _ _           _       
+                      (_) |         | |      
+              ___ ___  _| | __ _  __| |_   _ 
+            | '_ ` _ \| | |/ _` |/ _` | | | |
+            | | | | | | | | (_| | (_| | |_| |
+            |_| |_| |_|_|_|\__,_|\__,_|\__, |
+                                        __/ |
+                                       |___/ 
+           
+           This code is under copyright & licence.
+           The distribution of the package or parts of package is not allowed.
+           Contributions A. M. Goryaeva, W. Unn-Toc, J. Baima, C. Lapointe, C. Van Wambeke
+           For more details, please contact: mihai-cosmin.marinica@cea.fr
+           
+           Compiled by
+           Intel(R) Fortran Intel(R) 64 Compiler Classic for applications running on Intel(R) 64, 
+             Version 2021.13.0 Build 20240602_000000
+           
+           Compilation at Oct 22 2024 12:05:06
+           
+           Compiler options was
+             -I/home/marinica/MLD_GitHub/mld_build_mix/mod 
+             -I/home/marinica/MLD_GitHub/mld_build_mix/include 
+             -I/opt/intel/oneapi/2024.2/include 
+             -I/usr/local/iopenmpi.4.1.6.ifx/lib64 
+             -I/usr/local/iopenmpi.4.1.6/include 
+             -I/usr/local/iopenmpi.4.1.6/lib64 
+             -DIFORT 
+             -DML=1 
+             -DMPI_STATUSES_IGNORE=1 
+             -DPARA=1 
+             -C 
+             -O0 
+             -check bounds 
+             -check uninit 
+             -warn all 
+             -warn nousage 
+             -diag-disable 8889 
+             -diag-disable=10448 
+             -fpe-all=0 
+             -no-ftz 
+             -traceback 
+             -L/opt/intel/oneapi/2024.2/lib/intel64 
+             -L/usr/local/iopenmpi.4.1.6.ifx/lib64 
+             -module ../mod 
+             -c 
+             -o CMakeFiles/milady_main.exe.dir/mld/main.F90.o 
+           
+           Execution user is marinica
+           Execution hostname is is245844.intra.cea.fr
+           [0m
+[32m[INFO    ] file din name = vacancy.din[0m
+[32m[INFO    ] readdm: no periodic conditions[0m
+[32m[INFO    ] ML: ldemitab False, compute all pairs[0m
+[32m[INFO    ] -- DM CONFIGURATION --
+           NDM + ML
+           [0m
+[32m[INFO    ] -- CONSTRAINTS --
+           crystal generation and run
+           [0m
+[32m[INFO    ] -- NEIGHBOURS --
+           [0m
+[32m[INFO    ] For MiLady TABLE DES VOISINS COMPLETE rvois 8.50E-08 [0m
+[32m[INFO    ]      npotentiel = 1
+                ipotentiel = 20
+                   fmt_cin = 1
+           [0m
+[32m[INFO    ] read_stream iostat -1 (-1 as EOF is normal as overdimensioned buffer is expected)[0m
+[32m[INFO    ] NDM -- BUILD LATTICE  FROM  -- vacancy.gin[0m
+[32m[INFO    ] ML: oNDM -- in init -- POTENTIALS -- with ipotential  : -1 [0m
+[32m[INFO    ] ML: oNDM -- in init ---- continue -- with ipotential  : 20 [0m
+[32m[INFO    ] ML: oNDM -- before  md_init_potential_ml -- MILADY potential[0m
+[32m[INFO    ] -- DATABASE ATOMS --
+            id element   Z     mass
+             1   26 Fe 26.00  55.85 
+           [0m
+[32m[INFO    ] Linear ML[0m
+[32m[INFO    ] ML: selection of random no selected configs of the database class / db line [0m
+[32m[INFO    ] Machine Learning type with linear basis, LML[0m
+[32m[INFO    ] NDM +  kernel 2-body + ML_BISPECTRUM_SO4[0m
+[32m[INFO    ] ML: read_ml_file in MD_mode ... done [0m
+[32m[INFO    ] ML: alloc_typ_ml in MD_mode ... done [0m
+[31m[WARNING ] ML: MD_mode Chemical and type are not fixed in MD mode. More than one type nyp = 1 is DANGEROUS[0m
+[32m[INFO    ] ML: MD_mode initial type and masses in uam 1 
+           mass setting     55.85 [0m
+[32m[INFO    ] ML: oNDM -- BUILD LATTICE  FROM  -- vacancy.gin[0m
+[32m[INFO    ] ML: oNDM init -- in init -- configuration MILADY -- [0m
+[32m[INFO    ] ML: oNDM init -- in init --     dmtype MILADY    -- 18 [0m
+[32m[INFO    ] ML: oNDM init -- in init -- finalization of init --[0m
+[32m[INFO    ] ------------------------
+           --- MACHINE LEARNING ---
+           ------------------------
+           [0m
+[32m[INFO    ] -- DATABASE ATOMS --
+            id element   Z     mass
+             1   26 Fe 26.00  55.85 
+           [0m
+[32m[INFO    ] Linear ML[0m
+[32m[INFO    ] ML: selection of random no selected configs of the database class / db line [0m
+[32m[INFO    ] Machine Learning type with linear basis, LML[0m
+[32m[INFO    ] NDM +  kernel 2-body + ML_BISPECTRUM_SO4[0m
+[32m[INFO    ] descriptor bso4 has the dimension 55 [0m
+[32m[INFO    ] ML: 2-body kernel is activated and the dimension is 40 [0m
+ML:|---------------------------- Review of the DB model -----------------------------|
+ML:  i_db_line    class klm           start          selected            total 
+ML:     1           01  111             1                1                   4
+ML:     2           02  111             1                1                   4
+ML:|---------------------------|
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     0     0     0     1     8
+ML: the number of datapoints in train, n_train, n_E, n_F, n_S:        782       2     768      12
+[32m[INFO    ] ML: The number of fit parameters are exactly:  96 [0m
+ ML: the max value of the descriptor is   :   419.821014450785     
+ML: after SVD...............................
+ML: dgelsd SVD inversion info Mline Ncolm lwork RCOND RANK ....:   0      96      96   8262   -0.1000000000D+01    72
+ML:        ERROR TYPE                             R^2             D             RMSE          MAE    
+ML: stat  Total_Energy            train:       1.000000       0.756562       0.152117       0.152117
+ML: stat  Total_Energy_per_atom   train:       1.000000       0.756562       0.001188       0.001188
+ML: stat  Force_each_component    train:       0.999682       1.008652       0.007541       0.005631
+ML: stat  Stress_virial           train:       0.999025       1.518500       0.000321       0.000231
+ML: after SVD...............................
+ML: dgelsd SVD inversion info Mline Ncolm lwork RCOND RANK ....:   0       6       6   1056   -0.1000000000D+01     6
+ ML: Writing parameters in write_snap_parameters
+[32m[INFO    ] ML: The parameters were wrote ...[0m
+ML: the number of datapoints in  test,  n_test, n_E, n_F, n_S:       2346       6    2304      36
+ML: stat  Total_Energy             test:       0.998016       0.882727       0.135406       0.130088
+ML: stat  Total_Energy_per_atom    test:       0.998016       0.882727       0.001058       0.001016
+ML: stat  Force_each_component     test:       0.999574       1.000750       0.008151       0.005300
+ML: stat  Stress_virial            test:       0.999088       1.442663       0.000374       0.000184
+ML:|---------------------------- Errors by class -----------------------------|
+ML: class Total_Energy             01  :       1.000000       1.130199       0.158701       0.158500
+ML: class Total_Energy_per_atom    01  :       1.000000       1.130199       0.001240       0.001238
+ML: class Force_each_component     01  :       0.999610       1.024775       0.006323       0.004285
+ML: class Stress_virial            01  :       0.999008       1.268129       0.000120       0.000085
+ -- 
+ML: class Total_Energy             02  :       0.999615       0.916429       0.107161       0.101676
+ML: class Total_Energy_per_atom    02  :       0.999615       0.916429       0.000837       0.000794
+ML: class Force_each_component     02  :       0.999610       1.024775       0.006323       0.004285
+ML: class Stress_virial            02  :       0.999280       1.465143       0.000515       0.000282
+ -- 
+ML:------------------REPORTING TIME---------------------------
+ML: Full DB read time ............................:          0.002
+ML: TRAIN TIME ...................................:          2.480
+ML: time for searching neighbours ......:          0.004
+ML: time for computing desc ............:          2.183
+ML: kernel 2-body ......................:          0.210
+ML: time for fillig the local design matrix ....:          0.291
+ML: time for filling the global design matrix ....:          0.002
+ML: filling  global y ........:          0.000
+ML: filling  global Amat .....:          0.002
+ML: filling  global obj ......:          0.000
+ML: time for fitting params ............:          0.003
+ML: TEST TIME ....................................:          7.811
+ML: time for searching neighbours ......:          0.011
+ML: time for computing desc ............:          6.866
+ML: kernel 2-body ......................:          0.667
+ML: time for evaluation ................:          0.929
+   ----Full end----  
+ML:   ----------------c u later alligator----------------  
+ ************  END DE MACHINE LEARNING ****************

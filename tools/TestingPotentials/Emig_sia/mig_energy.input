@@ -1,0 +1,2 @@
+# mig_energy.input — SIA migration parameters
+lattice_parameter = 3.185583        # Equilibrium lattice parameter (from get_a0)

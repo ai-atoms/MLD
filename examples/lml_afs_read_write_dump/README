@@ -1,0 +1,47 @@
+
+####################################################################################
+   This is the example ML fit from dump descriptor files vs classical fit
+####################################################################################
+
+-- TO PERFORM THE CLASSICAL FIT --
+
+   Set vacancy.ml_classic as the principle input file:
+       >> rm -rf vacancy.ml ; ln -s vacancy.ml_classic vacancy.ml
+
+   Run MiLaDy and write the output of the fit to OUT_CLASSIC:
+       >> mpirun -np 2 milady_main.exe  > OUT_CLASSIC
+
+
+-- TO PERFORM THE FIT AND WRITE DUMP DESCRIPTOR FILES --
+
+   Set vacancy.ml_write_dump as the principle input file:
+       >> rm -rf vacancy.ml ; ln -s vacancy.ml_write_dump vacancy.ml
+
+   Run MiLaDy and write the output of the fit to OUT_WRITE:
+       >> mpirun -np 2 milady_main.exe  > OUT_WRITE
+
+
+-- TO PERFORM THE FIT BASED ON READING OF DUMP DESCRIPTOR FILES --
+
+   Set vacancy.ml_read_dump as the principle input file:
+       >> rm -rf vacancy.ml ; ln -s vacancy.ml_read_dump vacancy.ml
+
+   Run MiLaDy and write the output of the fit to OUT_READ:
+       >> mpirun -np 2 milady_main.exe  > OUT_READ
+
+
+-----------------------------------------------------------------------------
+
+
+the output of fit (after the logo of MiLaDy) in files:
+  - OUT_CLASSIC
+  - OUT_WRITE
+  - OUT_READ
+
+should not differ more than within a numerical error.
+
+
+-----------------------------------------------------------------------------
+
+The database files provided in this example do not represent a complete database.
+Please, make sure that the fit works fine for the real dataset.

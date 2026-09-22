@@ -1,0 +1,5 @@
+python3 Scripts/plot_output_eigenvalues.py
+
+read and plot the eigenvalues of the \Sigma matrix full and bulk. 
+train_sigma.eigenvalues  - bulk of class predefined 
+test_sigma.eigenvalues   - the entire matrix of the database.

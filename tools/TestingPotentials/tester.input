@@ -1,0 +1,23 @@
+# tester.input
+lammps_executable = /home/marinica/GitHub/lammps.git/build-ifx/lmp
+#potential_file = /home/marinica/Work_ML/MoW_ML/ireneSelf/Potentials_W_Mo/Mo_PBE/Mo_PBE_LML_K2B/lammps_bso4_snap1_params.pot
+# potential_file = /home/marinica/Work_ML/MoW_ML/ireneSelf/Potentials_W_Mo/Mo_PBE/Mo_PBE_QNML_V02/lammps_bso4_qnml1_params.pot
+#potential_file = /home/marinica/Work_ML/MoW_ML/ireneSelf/Potentials_W_Mo/Mo_AM/Mo_AM_QNML_V02/lammps_bso4_qnml1_params.pot
+#potential_file = /home/marinica/Work_ML/debug_Arnaud/pot_W_Arnaud/W_ZBL_K2B_BSO4_2024.pot
+potential_file = /home/marinica/Work_ML/debug_Arnaud/pot_W_Arnaud_03_QNML/W_ZBL_K2B_QNML_BSO4_2025.pot
+potential_file = /home/marinica/Work_ML/debug_Arnaud/pot_W_Arnaud_03_QNML/W_QNML_03.pot
+potential_file = /home/marinica/Work_ML/debug_Arnaud/pot_W_Arnaud_03_QNML/W_SASHA_QNML_BSO4_2025.pot
+potential_file = /home/marinica/Work_ML/debug_Arnaud/FITS/pot_ACE_Fe/lammps_lace_kernl_params.pot
+potential_file = /home/marinica/Work_ML/debug_Arnaud/FITS/pot_ACE_Fe_V07/lammps_lace_snap1_params.pot
+potential_file_ext1 = /home/marinica/Work_ML/debug_Arnaud/FITS/pot_ACE_Fe_V07/basecnlmace.xml
+potential_file_ext2 = /home/marinica/Work_ML/debug_Arnaud/FITS/pot_ACE_Fe_V07/radialace.xml
+species = W
+lammps_script_block = """
+pair_style      milady
+mass       1  55.84500
+pair_coeff      * *        pot.fs Fe
+"""
+neb_mpi_command = mpirun -np 14
+neb_partition_lammps = 14x1
+hostfile_content = localhost slots=14
+min_mpi_command = mpirun -np 10

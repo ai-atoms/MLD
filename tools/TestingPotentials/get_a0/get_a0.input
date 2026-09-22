@@ -1,0 +1,5 @@
+# get_a0.input
+#lattice_parameter = 3.18   # Lattice parameter guess
+lattice_parameter = 2.83258   # Lattice parameter guess
+structure_type = bcc          # Structure type (bcc, fcc, a15)
+mpi_command = mpirun -np 10    # mpi command for your system

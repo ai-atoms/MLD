@@ -1,0 +1,2 @@
+# small_vacancy.input — Vacancy formation energy parameters
+lattice_parameter = 2.83258       # Equilibrium lattice parameter (from get_a0)

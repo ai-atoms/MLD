@@ -1,0 +1,74 @@
+# Fe bcc phase
+
+units		metal
+boundary	p p p
+
+atom_style	atomic
+atom_modify     map array
+pair_style	eam/alloy
+#pair_style      meam
+#atom_modify     sort 0 0.0
+
+box             tilt large
+
+read_data	initial.data
+#pair_coeff       * * Fe-C_Hepburn_Ackland.eam.fs Fe C
+#pair_coeff	* * Fe3C_library_Liyanage_2014.meam Fe C Fe3C_Liyanage_2014.meam Fe C
+pair_coeff      * * FeP.fs Fe 
+
+group                           Fe type 1
+mass                            1 55.84500
+
+#variable        u uloop 12
+#dump events all custom 1000 dump.neb.fe.$u id type x y z
+# minimize etol ftol max_iter_of_minimizer max_force_energy_eval
+minimize                 0.0 1.0e-4 1000 10000
+
+reset_timestep           0
+
+
+#fixing the forces
+#fix type-id (1)   groupid-which_atoms(all) neb Ksprings(force/distance units)
+fix             1 all neb 15.0
+
+#output thermo each N steps 
+thermo			500
+
+#dump                    DumpxyzFe Fe xyz 10 Fedump.xyz
+#dump                    DumpxyzC C xyz 10 Cdump.xyz
+#dump                    DumpxyzFeC all xyz 10 FeCdump.xyz
+
+timestep	0.01
+#min_style	cg, fire, quickmin (damped molecular dynamics), htfn (Hessian free truncated Newton), sd (steepst descent) 
+min_style	fire
+#neb  etol ftol N1max_for_initial_NEB N2_max_for_CImage  Nevery_print_replica_energies_every_nsteps final filename_with_coord_for_final_replica 
+thermo_style custom step etotal pxx pyy pzz pxy pxz pyz
+thermo 5
+
+
+variable i equal part 
+neb 		0.0 1.0e-2 100000 100000 50 each  coords.$i
+variable vol_box equal vol
+variable natoms equal  atoms
+# pe _ potential energy ek - kinetic enetgy 
+#compute        peratom all stress/atom NULL
+#compute        p all reduce sum c_peratom[1] c_peratom[2] c_peratom[3] c_peratom[4] c_peratom[5] c_peratom[6]
+variable        sxx equal pxx
+variable        syy equal pyy
+variable        szz equal pzz
+variable        sxy equal pxy
+variable        sxz equal pxz
+variable        syz equal pyz
+variable tenergy equal  pe
+print "Number_of_atoms = ${natoms}"
+print "Energy_box = ${tenergy}"
+print "sig_xx = ${sxx}"
+print "sig_yy = ${syy}"
+print "sig_zz = ${szz}"
+print "sig_xy = ${sxy}"
+print "sig_xz = ${sxz}"
+print "sig_yz = ${syz}"
+print "Volume = ${vol_box}"
+
+variable i equal part
+write_data  final_coords.$i

@@ -1,0 +1,138 @@
+#!/usr/bin/env python
+#-*- coding:utf-8 -*-
+
+__doc__="""
+
+List all or specific environment variables
+
+1- split all or specific environment variables $XXX(s)...
+   example: 
+   >> environs.py -> all
+   >> environs.py -e SHELL,PATH -> specific $SHELL and $PATH
+
+2- split all or specific environment variables on pattern $*XXX*(s)...
+   example: 
+   >> environs.py --pattern ROOT -> specific $*ROOT*
+ 
+3- split search specific substrings in contents of environment variables $XXX(s)...
+   example: 
+   >> environs.py --grep usr  -> all specific environment variables containing 'usr'
+
+tips
+  create unix alias as shortcut:
+  >> alias envs="~/environs.py"
+  
+"""
+
+import os
+import sys
+import argparse as ARG
+import pprint as PP # pretty print
+
+debug=False
+
+def printOneLineOrNot(i, options):
+  env = options.environ
+  splitenv = env[i].split(":")
+  done = False
+  for j in splitenv:
+    if j!="": 
+      if not done: 
+        print("{:<30} = {}".format(i, j))
+        done=True
+      else:
+        if not options.detailed:
+          print("{:<30}   {}".format(" ", j))
+        else:
+          print("{:<30}   {}".format(" ... "+i, j))
+
+def print_split_environs(options):
+  env = options.environ
+  args = options.envvar.split(",")
+  res = False
+  if debug: print("print_split_environs", args, env)
+  for i in sorted(env):
+      if (args==['']) or (i in args):
+        printOneLineOrNot(i, options)
+        res = True
+  return res
+
+def print_split_pattern_environs(options):
+  env = options.environ
+  args = options.pattern.split(",")
+  for i in sorted(env):
+      ok = False
+      for j in args:
+        if j in i:
+          ok = True
+          #print("i %s j %s %s" % (i,j,ok))
+      if (args==['']) or (ok):
+        printOneLineOrNot(i, options)
+
+def print_grep_environs(options):
+  env = options.environ
+  args = options.grep.split(",")
+  res = False
+  for i in sorted(env):
+      for j in env[i].split(":"):
+        for a in args:
+          if a in j:
+            #print i+" contains  "+j
+            print("{:<20}    contains '{}' as '{}'".format(i,a,j))
+            res = True
+  return res
+
+def filter_pattern(pattern, environ):
+  res = {}
+  args = pattern.split(",")
+  if debug: print("args", args)
+  if args == []:
+    return environ
+  for i in sorted(environ):
+    ok = False
+    for j in args:
+      if j in i:
+          ok = True
+          #print("i %s j %s %s" % (i,j,ok))
+      if (len(args)==0) or (ok):
+        res[i] = environ[i]
+  return res
+            
+
+def main(args):
+  parser = ARG.ArgumentParser(usage=__doc__) # is top docstring of file
+  parser.add_argument("-v","--verbose",action="store_true",default=False,help="verbose mode")
+  parser.add_argument("-e","--envvar",metavar="ENV_VAR", default="",help="example: -e PATH")
+  parser.add_argument("-g","--grep",metavar="GREP_VAR", default="",help="example: -g /home/")
+  parser.add_argument("-p","--pattern",metavar="PATTERN", default="",help="example: -p ROOT")
+  parser.add_argument("-d","--detailed",action="store_true",default=False,help="detailed display")
+  
+  options = parser.parse_args(args)
+  if options.verbose: print("Arguments are %s\n" % PP.pformat(options.__dict__))
+  options.environ = dict(os.environ)
+  
+  if debug: print("initial environ is\n%s\n" % PP.pformat(options.environ))
+  
+  if options.pattern != "": 
+    options.environ = filter_pattern(options.pattern, options.environ)
+    if options.environ == {}:
+      print("No env_var name with any '%s'" % options.pattern)
+      sys.exit()
+
+  if options.grep != "": 
+    ok = print_grep_environs(options)
+    if not ok:
+      print("No env_var with any '%s' in value" % options.grep)
+    sys.exit()
+  
+  #options.envvar == "" or else
+  ok = print_split_environs(options)
+  if not ok:
+    print("No env_var name '%s'" % options.envvar)
+  
+  
+
+if __name__ == '__main__':
+  main(sys.argv[1:])
+
+

@@ -1,0 +1,280 @@
+[32m[INFO    ] mld_mpi_init ! hello world ! from rank 0 of 14[0m
+[32m[INFO    ] 
+                       _ _           _       
+                      (_) |         | |      
+              ___ ___  _| | __ _  __| |_   _ 
+            | '_ ` _ \| | |/ _` |/ _` | | | |
+            | | | | | | | | (_| | (_| | |_| |
+            |_| |_| |_|_|_|\__,_|\__,_|\__, |
+                                        __/ |
+                                       |___/ 
+           
+           This code is under copyright & licence.
+           The distribution of the package or parts of package is not allowed.
+           Contributions A. M. Goryaeva, W. Unn-Toc, J. Baima, C. Lapointe, C. Van Wambeke
+           For more details, please contact: mihai-cosmin.marinica@cea.fr
+           
+           Compiled by
+           Intel(R) Fortran Compiler for applications running on Intel(R) 64, 
+             Version 2025.3.0 Build 20251023
+           
+           Compilation at Feb 28 2026 17:27:31
+           
+           Compiler options was
+             -I/home/marinica/MLD_GitHub/mld_build_mix/mod 
+             -I/home/marinica/MLD_GitHub/mld_build_mix/include 
+             -I/usr/local/iopenmpi.5.0.8/include 
+             -I/usr/local/iopenmpi.5.0.8/lib64 
+             -DIFORT 
+             -DML=1 
+             -DMPI_STATUSES_IGNORE=1 
+             -DPARA=1 
+             -isystem /opt/intel/oneapi/2025.3/include 
+             -isystem /usr/local/iopenmpi.5.0.8/lib64 
+             -O3 
+             -xHost 
+             -qopt-zmm-usage=high 
+             -traceback 
+             -diag-disable=10448 
+             -L/usr/local/iopenmpi.5.0.8/lib64 
+             -module ../mod 
+             -c 
+             -o CMakeFiles/milady_main.exe.dir/mld/main.F90.o 
+           
+           Execution user is marinica
+           Execution hostname is localhost.localdomain
+           [0m
+[32m[INFO    ] file din name = vacancy.din[0m
+[32m[INFO    ] readdm: no periodic conditions[0m
+[32m[INFO    ] ML: ldemitab False, compute all pairs[0m
+[32m[INFO    ] -- DM CONFIGURATION --
+           NDM + ML
+           [0m
+[32m[INFO    ] -- CONSTRAINTS --
+           crystal generation and run
+           [0m
+[32m[INFO    ] -- NEIGHBOURS --
+           [0m
+[32m[INFO    ] For MiLady TABLE DES VOISINS COMPLETE rvois 8.50E-08 [0m
+[32m[INFO    ]      npotentiel = 1
+                ipotentiel = 20
+                   fmt_cin = 1
+           [0m
+[32m[INFO    ] read_stream iostat -1 (-1 as EOF is normal as overdimensioned buffer is expected)[0m
+[32m[INFO    ] ML: oNDM -- in init -- POTENTIALS -- with ipotential  : -1 [0m
+[32m[INFO    ] ML: oNDM -- in init ---- continue -- with ipotential  : 20 [0m
+[32m[INFO    ] ML: oNDM -- before  md_init_potential_ml -- MILADY potential[0m
+[32m[INFO    ] -- DATABASE ATOMS --
+            id element   Z     mass
+             1   74 W  74.00  183.84 
+           [0m
+[32m[INFO    ] Linear ML[0m
+[32m[INFO    ] ML: selection of the first no selected configs of the database class / db line [0m
+[32m[INFO    ] Machine Learning type with linear basis, LML[0m
+[32m[INFO    ] NDM +  standard ACE[0m
+[32m[INFO    ] ML: read_ml_file in MD_mode ... done [0m
+[32m[INFO    ] ML: alloc_typ_ml in MD_mode ... done [0m
+[31m[WARNING ] ML: MD_mode Chemical and type are not fixed in MD mode. More than one type nyp = 1 is DANGEROUS[0m
+[32m[INFO    ] ML: MD_mode initial type and masses in uam 1 
+           mass setting    183.84 [0m
+[32m[INFO    ] ML: oNDM init -- in init -- configuration MILADY -- [0m
+[32m[INFO    ] ML: oNDM init -- in init --     dmtype MILADY    -- 18 [0m
+[32m[INFO    ] ML: oNDM init -- in init -- finalization of init --[0m
+[32m[INFO    ] ------------------------
+           --- MACHINE LEARNING ---
+           ------------------------
+           [0m
+[32m[INFO    ] -- DATABASE ATOMS --
+            id element   Z     mass
+             1   74 W  74.00  183.84 
+           [0m
+[32m[INFO    ] Linear ML[0m
+[32m[INFO    ] ML: selection of the first no selected configs of the database class / db line [0m
+[32m[INFO    ] Machine Learning type with linear basis, LML[0m
+[32m[INFO    ] NDM +  standard ACE[0m
+[32m[INFO    ] ML: ACE body 2  the number of naive lbold is        :8 [0m
+------------- Graph of kinetic momenta coupling: info ----------------------
+  index  Node id  Node Order   Par 1  Par2  Level   Name
+       1       1       0       0       0       0     l1
+       2       2       0       0       0       0     l2
+       3       3       1       1       2       1     L12
+-----------------------------------------------------------------------------
+[32m[INFO    ] ML: ACE body 2  the number of lbold with L=0 is     :4 [0m
+[32m[INFO    ] ML: ACE body 2  the final number of unique lbold is :4 [0m
+[32m[INFO    ] ML: ACE body 2  sizes: dico_mu=1  dico_mub_nb_lb0=40 [0m
+[32m[INFO    ] ML: Precomputing the CG coefficients with llmax 3  for nu = 2 [0m
+[32m[INFO    ] ML: Precomputing the RI CG coefficients with llmax 3  for nu = 2 [0m
+[32m[INFO    ] ML: ACE body 2  has the dim_B_basis 40 [0m
+[32m[INFO    ] ML: ACE body 2  the total number of A tuples is    160 [0m
+[32m[INFO    ] ML: ACE body 2  the total number of unique A tuples is 64 [0m
+[32m[INFO    ] ML: ACE body 2  min k 1  max k 64 [0m
+[32m[INFO    ] ML: ACE body 3  the number of naive lbold is        :14 [0m
+------------- Graph of kinetic momenta coupling: info ----------------------
+  index  Node id  Node Order   Par 1  Par2  Level   Name
+       1       1       0       0       0       0     l1
+       2       2       0       0       0       0     l2
+       3       3       1       1       2       1     L12
+       4       4       0       0       0       0     l3
+       5       5       2       3       4       2     L123
+-----------------------------------------------------------------------------
+[32m[INFO    ] ML: ACE body 3  the number of lbold with L=0 is     :11 [0m
+[32m[INFO    ] ML: ACE body 3  the final number of unique lbold is :5 [0m
+[32m[INFO    ] ML: ACE body 3  sizes: dico_mu=1  dico_mub_nb_lb0=74 [0m
+[32m[INFO    ] ML: Precomputing the CG coefficients with llmax 2  for nu = 3 [0m
+[32m[INFO    ] ML: Precomputing the RI CG coefficients with llmax 2  for nu = 3 [0m
+[32m[INFO    ] ML: ACE body 3  has the dim_B_basis 74 [0m
+[32m[INFO    ] ML: ACE body 3  the total number of A tuples is    506 [0m
+[32m[INFO    ] ML: ACE body 3  the total number of unique A tuples is 27 [0m
+[32m[INFO    ] ML: ACE body 3  min k 1  max k 27 [0m
+[32m[INFO    ] ML: ACE body 4  the number of naive lbold is        :41 [0m
+------------- Graph of kinetic momenta coupling: info ----------------------
+  index  Node id  Node Order   Par 1  Par2  Level   Name
+       1       1       0       0       0       0     l1
+       2       2       0       0       0       0     l2
+       3       3       1       1       2       1     L12
+       4       4       0       0       0       0     l3
+       5       5       0       0       0       0     l4
+       6       6       2       4       5       1     L34
+       7       7       3       3       6       2     L1234
+-----------------------------------------------------------------------------
+[32m[INFO    ] ML: ACE body 4  the number of lbold with L=0 is     :37 [0m
+[32m[INFO    ] ML: ACE body 4  the final number of unique lbold is :8 [0m
+[32m[INFO    ] ML: ACE body 4  sizes: dico_mu=1  dico_mub_nb_lb0=62 [0m
+[32m[INFO    ] ML: Precomputing the CG coefficients with llmax 4  for nu = 4 [0m
+[32m[INFO    ] ML: Precomputing the RI CG coefficients with llmax 4  for nu = 4 [0m
+[32m[INFO    ] ML: ACE body 4  has the dim_B_basis 75 [0m
+[32m[INFO    ] ML: ACE body 4  the total number of A tuples is    1190 [0m
+[32m[INFO    ] ML: ACE body 4  the total number of unique A tuples is 18 [0m
+[32m[INFO    ] ML: ACE body 4  min k 1  max k 18 [0m
+[32m[INFO    ] ML: ACE body 5  the number of naive lbold is        :16 [0m
+------------- Graph of kinetic momenta coupling: info ----------------------
+  index  Node id  Node Order   Par 1  Par2  Level   Name
+       1       1       0       0       0       0     l1
+       2       2       0       0       0       0     l2
+       3       3       1       1       2       1     L12
+       4       4       0       0       0       0     l3
+       5       5       0       0       0       0     l4
+       6       6       2       4       5       1     L34
+       7       7       3       3       6       2     L1234
+       8       8       0       0       0       0     l5
+       9       9       4       8       7       3     L12345
+-----------------------------------------------------------------------------
+[32m[INFO    ] ML: ACE body 5  the number of lbold with L=0 is     :16 [0m
+[32m[INFO    ] ML: ACE body 5  the final number of unique lbold is :3 [0m
+[32m[INFO    ] ML: ACE body 5  sizes: dico_mu=1  dico_mub_nb_lb0=3 [0m
+[32m[INFO    ] ML: Precomputing the CG coefficients with llmax 2  for nu = 5 [0m
+[32m[INFO    ] ML: Precomputing the RI CG coefficients with llmax 2  for nu = 5 [0m
+[32m[INFO    ] ML: ACE body 5  has the dim_B_basis 3 [0m
+[32m[INFO    ] ML: ACE body 5  the total number of A tuples is    23 [0m
+[32m[INFO    ] ML: ACE body 5  the total number of unique A tuples is 4 [0m
+[32m[INFO    ] ML: ACE body 5  min k 1  max k 4 [0m
+------------------------------------ACE descriptor review------------------------------------------------------
+----------------------------------------general ACE info-------------------------------------------------------
+Order nmax  lmax  mumax  dim_mu  dim_n  dim_l0  dim_Lb  dim_Li  dim_nl0 dim_B     r_cut_out  r_cut_in   lambda
+    1   14    0    1       1      15       1      15      15      15      15       5.000       1.200       3.000
+    2    4    3    1       1      16       4      40      40      40      40       5.000       1.200       3.000
+    3    3    2    1       1      27       5      74      74      74      74       5.000       1.200       3.000
+    4    2    2    1       1      16       8     110      75      62      75       5.000       1.200       3.000
+    5    1    1    1       1       1       3       5       3       3       3       5.000       1.200       3.000
+    6    -    -    -       -       -       -       -       -       -       -           -           -
+------------------------------------non zero ACE basis per element------------------------------------------------------
+Order  dim_B  non-zero  uni_nb_max  uni_nb_min  uni_nb_mean  uni_mub_max  uni_mub_min  uni_mub_mean
+   2     40      40           1           1          10           10           10            1
+   3     74      74           1           1          14           18           10            1
+   4     75      62           1           1           7           12            5            1
+   5      3       3           1           1           1            1            1            1
+   6      -       -           -           -           -            -            -            -
+--------------------------------------------------------------------------------------------------------------
+[32m[INFO    ] ML: In this ACE descriptor the total number of B basis is 207 [0m
+[32m[INFO    ] descriptor lace has the dimension 207 [0m
+[32m[INFO    ] ML: descriptors will NOT be written[0m
+[32m[INFO    ] ML: descriptors will be written in EML format[0m
+ML:|---------------------------- Review of the DB model -----------------------------|
+ML:  i_db_line    class klm           start          selected            total 
+ML:     1           04  111             1               45                  60
+ML:     2           05  111             1               15                  19
+ML:     3           07  111             1               12                  16
+ML:     4           09  111             1               16                  21
+ML:     5           12  111             1             1500                2000
+ML:     6           13  111             1               75                  75
+ML:|---------------------------|
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     0     0     0     1  2191
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     7     7     0     1  2191
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     6     6     0     1  2191
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     2     2     0     1  2191
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     1     1     0     1  2191
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     5     5     0     1  2191
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     4     4     0     1  2191
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     3     3     0     1  2191
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :    10    10     0     1  2191
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :    11    11     0     1  2191
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :    13    13     0     1  2191
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     9     9     0     1  2191
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :    12    12     0     1  2191
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     8     8     0     1  2191
+ML: the number of datapoints in train, n_train, n_E, n_F, n_S:      27676    1663   16467    9546
+[32m[INFO    ] ML: The number of fit parameters are exactly:  208 [0m
+ ML: the max value of the descriptor is   :   7.71254546639219     
+ML: after SVD...............................
+ML: dgelsd SVD inversion info Mline Ncolm lwork RCOND RANK ....:   0     208     208  20438   -0.1000000000D+01    37
+ML:        ERROR TYPE                             R^2             D             RMSE          MAE    
+ML: stat  Total_Energy            train:       0.999347       0.966806       0.103759       0.023294
+ML: stat  Total_Energy_per_atom   train:       0.994978       0.987256       0.013681       0.007959
+ML: stat  Force_each_component    train:       0.994215       1.009039       0.089947       0.062303
+ML: stat  Stress_virial           train:       0.883958       1.006995       0.035937       0.026984
+ ML: Writing parameters in write_snap_parameters
+[32m[INFO    ] ML: The parameters were wrote ...[0m
+ML: the number of datapoints in  test,  n_test, n_E, n_F, n_S:       8538     528    4980    3030
+ML: stat  Total_Energy             test:       0.999798       0.977236       0.082240       0.022913
+ML: stat  Total_Energy_per_atom    test:       0.993020       0.971014       0.013638       0.008142
+ML: stat  Force_each_component     test:       0.992144       0.989272       0.150378       0.109895
+ML: stat  Stress_virial            test:       0.891152       0.958798       0.035736       0.026773
+ML:|---------------------------- Errors by class -----------------------------|
+ML: class Total_Energy             04  :       0.996902       1.026675       0.295719       0.279557
+ML: class Total_Energy_per_atom    04  :       0.996902       1.026675       0.024643       0.023296
+ML: class Force_each_component     04  :       --       
+ML: class Stress_virial            04  :       --       
+ -- 
+ML: class Total_Energy             05  :       0.999511       1.139717       0.180224       0.176705
+ML: class Total_Energy_per_atom    05  :       0.999511       1.139717       0.001419       0.001391
+ML: class Force_each_component     05  :       0.993920       1.003459       0.114217       0.091203
+ML: class Stress_virial            05  :       --       
+ -- 
+ML: class Total_Energy             07  :       0.998053       0.968435       0.697344       0.663122
+ML: class Total_Energy_per_atom    07  :       0.998053       0.968435       0.005448       0.005181
+ML: class Force_each_component     07  :       0.993781       1.003450       0.116098       0.091982
+ML: class Stress_virial            07  :       --       
+ -- 
+ML: class Total_Energy             09  :       0.991125       1.055768       0.138050       0.125489
+ML: class Total_Energy_per_atom    09  :       0.991125       1.055768       0.001079       0.000980
+ML: class Force_each_component     09  :       0.992781       0.991446       0.138015       0.104719
+ML: class Stress_virial            09  :       0.987123      62.739631       0.027992       0.019970
+ -- 
+ML: class Total_Energy             12  :       0.979322       0.932762       0.013339       0.007836
+ML: class Total_Energy_per_atom    12  :       0.979322       0.932762       0.013339       0.007836
+ML: class Force_each_component     12  :       --       
+ML: class Stress_virial            12  :       0.894243       0.955544       0.035805       0.026841
+ -- 
+ML: class Energy                   13  :       --       
+ML: class Total_Energy_per_atom    13  :       --       
+ML: class Force_each_component     13  :       --       
+ML: class Stress_virial            13  :       --       
+ -- 
+ML:------------------REPORTING TIME---------------------------
+ML: Full DB read time ............................:          0.022
+ML: TRAIN TIME ...................................:          7.734
+ML: time for searching neighbours ......:          2.824
+ML: time for computing desc ............:          4.649
+ML: time for fillig the local design matrix ....:          0.153
+ML: time for filling the global design matrix ....:          0.102
+ML: filling  global y ........:          0.000
+ML: filling  global Amat .....:          0.099
+ML: filling  global obj ......:          0.003
+ML: time for fitting params ............:          0.084
+ML: TEST TIME ....................................:          2.511
+ML: time for searching neighbours ......:          0.899
+ML: time for computing desc ............:          1.556
+ML: time for evaluation ................:          0.044
+   ----Full end----  
+ML:   ----------------c u later alligator----------------  
+ ************  END DE MACHINE LEARNING ****************

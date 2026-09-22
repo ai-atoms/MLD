@@ -1,0 +1,3 @@
+# mig_energy.input — Vacancy migration parameters
+#lattice_parameter = 3.18589       # Equilibrium lattice parameter (from get_a0)
+lattice_parameter = 2.83258

@@ -1,0 +1,62 @@
+ &input
+	ipotentiel=10
+	imm=2000
+	igen=0
+	dmtype=18 !17 ABF, 7 PHONDY
+        
+        lpr=.false.
+
+        nebtype=2
+	nebrelaxation=2
+	maxneb=400
+	kspring = 0.8
+	deltaRmax=0.2 
+	npath=9
+        dfpred=0.1
+        tinit=0.0
+	tstep=5.0
+	fpstop=0.005
+	fsumstop=-1.0
+
+        deltax=0.001
+        HessianOrder=2
+	
+	itmax=250000
+	ngrid=250000
+	itetemp=200
+	itesauv=2000
+	itedepla=-1,itecoordo=-1
+	lEev=.true. 
+	lEparat=.true.,
+        lPkbar=.true. 	
+	itesigma=100,
+	
+	iterasmol=1000000
+	itecfg=500000
+	
+	ltriclin=.true.
+	ltabvois=.true.
+	lconstrtot=.false.
+	lperiod=.false.
+	itetabvois=10
+        rvois=6.0
+        !rvois=12.0
+        
+ &end
+
+	itab=10
+     
+  !dmtype = type of calculation : 1 -> MD
+  !!                               2 -> quench (trempe)
+  !                               3 -> gradient conjugue sur les coordonnes cartesiennes
+  !                              30 -> gradient conjugue sur les coordonnes reduites
+  !                               4 -> Velocity Verlet 
+  !                               5 -> test des forces 
+  !                               6 -> analyse des positions en fin de cascade 
+  !                               7 -> calcul des phonons
+  !                               8 -> PR
+  !                               9 -> NEB
+  !                              10 -> PARIN RAHMAN 
+  !                              11 -> UN SEUL CALCUL DE FORCES
+  !                              12 -> ART
+  !                              17 -> MAB

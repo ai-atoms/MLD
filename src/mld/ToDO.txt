@@ -1,0 +1,340 @@
+ToDo:
+------------------------
+
+
+
+-----------------------
+In end module module_create_descdb 
+there is if (rangml==0) then 
+end if for creation ? 
+-----------------------
+
+-> test HDF5 reading 
+-> implement HDF5 writting
+    -  energy - implemented in version all the desc are written from rank 0 
+    -  energy - to implement in version write from masters_world (the head of any subworld) 
+    -  force to implement in both version  
+
+General strange behaviour that should be corrected: 
+----------------------------------------------------------
+The is an inconsistency in the test calculations. The score are computed only in one subworld. 
+The overall test score is computed correctly. The partial test score by class is not computed correctly. 
+
+
+Points k selections: 
+---------------------------------------------
+- there are strange behaviours for very large systems in k points selections for very large descriptors dimensions 
+(more than 15000). In those conditions: 
+   - even DxD  becomes large. Should be replaced by some scalpack matrix. 
+   - the selections which imply SVD should be changed. Becomes too costly. random SVD ? Replace SVD score by some 
+     norm of the column of DxM matrix ? Avoid the build of DxM matrix ? 
+
+Geenral fit improvements:
+----------------------------------------------
+General fit when M from Amat=XxM (X = phi(D))  becomes too large. Avoid the direct construction of MxX 
+  -  XxX should be a scalapack matrix 
+  -  build on the fly BB = Amat X Amat^T matrix and CC = Amat y   (Xx1)
+  -  do not forget weigths matrix in the above sum
+  - this shoulf be done MPI (take into account world, subworld). Probably the best strategy 
+    > is by building BB_sub and CC_sub as scalapack over subworld 
+    > reduce them over all subworld from the head masters_world
+    > distribut avoer the whole grid 
+    > solve the system                  
+
+
+-> General TODO: In general write of descriptors is not very optimized. 
+The config_desc(iconf)%energy(dim_desc, nat)  is defined over the all processors of the subworld 
+Some mpi  needed in that part. 
+
+
+------------------------------------------------------------------
+
+
+
+
+ - ZBL related 
+  Design 
+  a. there is also r1_zbl <  r2_zbl 
+  b. rr_k2b should absolutely be a  point between [r1_zbl, r2_zbl]
+  c. a very good choice is rr_k2k = r_cut_in 
+  d. if no in input for r_cut_in (negative) Milady will takes rr_k2b = r_cut_in = (r2_zbl - r1_zbl) /2 
+  e.  ZBL continuity between k2b and potZBL  is a new function between rr_k2b = r_cut_in and r1_zbl  
+  
+
+
+
+1) stress from Milady should be correctly coupled with NDM:
+            - transfer to NDM the values
+            - be sure that the same sign convention is between NDM and MiLaDy.
+              Ideea of test: perform EAM compression and MiLady compression see if the sign is the same
+
+
+2) MD: coupling with MD code.
+          - quench molecular dynamics - done
+          - real molecular dynamics, NVT - done. For the moment only in dmtype=1.
+            Velocity-Verlet dmtype=4 not working.
+          - NEB - done
+          - CG  - done
+          - PR - once I have stress
+          - Phonons
+                - gamma   done
+                - k-point
+          - Free Energy done
+
+
+
+
+----------------------------------------------------------------
+
+MiLaDy and inconsistencies and Redefine some standards:
+
+---------------------------------------------------------------
+
+
+(not still implemented)
+--> dim_desc   - dimension of the used descriptors. is set in function of g2_dim, g3_dim ...
+                 Is the dimension that is founfd in any allocated variable:
+                 config_desc(i)%dim_desc
+
+                 init_desc - subroutine
+
+
+-->  xdesc_train  vectors inconsistencies. Check:
+     - How this is defined. For the moment is evrywhere with the dim_xdesc dimension.
+       xdesc_train(1:dim_xdesc, size_of_Amat) or this should be
+       with the dimension of dim_xdesc_lieanr, dim_xdesc_quadratic etc
+
+       In my sense is unusefull and double the size of the memory.
+       Should be fixed one with the ScaLapack
+
+
+-->  dim_xdesc
+     --------------------------
+     dimension of the x_descriptors
+
+
+
+----------------------------------------------------------------
+
+MiLaDy and  the descriptors
+
+---------------------------------------------------------------
+
+
+(already implemented)
+desc   | high memory  | distributed memory | e_serial_pack |f_serial_pack | f_para_pack | s_serial_pack | p_para_pack |  weigthed
+bSO4                           *                    *                             *                           *             OK
+---------------------------------------------------------------------------------------------------------------------------------
+AFS                            *                    *                             *                           *             OK
+---------------------------------------------------------------------------------------------------------------------------------
+MTP                            *                    *                             *                           *             0K
+---------------------------------------------------------------------------------------------------------------------------------
+SOAP                           *                    *                             *                           *             NO
+---------------------------------------------------------------------------------------------------------------------------------
+G2+bSO4                        *                    *                             *                           *             NO
+---------------------------------------------------------------------------------------------------------------------------------
+G2                             *                    *                             *                           *             old
+---------------------------------------------------------------------------------------------------------------------------------
+G3                             *                    *                             *                           *             old
+---------------------------------------------------------------------------------------------------------------------------------
+BHL(G2G3)                      *                    *                             *                           *             NO
+---------------------------------------------------------------------------------------------------------------------------------
+pSO3                           *                    *                             *                           *             old
+---------------------------------------------------------------------------------------------------------------------------------
+bSO3                           *                    *                             *                           *             old
+---------------------------------------------------------------------------------------------------------------------------------
+bSO3                           *                    *                             *                           *             old
+---------------------------------------------------------------------------------------------------------------------------------
+
+-->  The last column should be fixed
+
+-->  the descritors for the forces have opposite sign for g2 and biso4. Please fix that.
+     In this version g2 is transmitted withthe right sign and bi-so4 with - sign in the descriptor.F90 subroutine.
+
+--> MTP cutoff function. Any function implemented for the moment
+
+--> magnetic descriptors. Is time for that.
+
+
+
+
+
+some history
+2023
+-------------------
+02/01 - some standards redefined for ZBL, inner cut for BS04
+07/01 - ZBL activated means also k2b activated 
+07/01 - ZBL continuity between k2b and potZBL  is a new function between rr_k2b = r_cut_in and r1_zbl  
+09/01 - channel version for 77 descriptor. 4 channels completelly user choice. 
+
+
+
+2022
+-------------------
+02/01 - sampled kernel SE by Fourier 
+15/01 - sampled kernel PO by McµLaurin Series 
+25/01 - BSO4 by channels with bug 
+05/02 - AFS/ G2 / others with channels
+15/02 - kernels in lammps
+20/02 - channels in LAMMPS 
+01/03 - selection of kernels by Mahalanobis 
+15/03 - Poly, Maha and SE kernel - faster version. 
+30/03 - big big debug from regular segmentation fault 3 weeks. J'en ai marres.
+        A lot of pain. 
+15/04 - Fully debug after pain al lot of pain.   
+20/04 - debug full of channels version. 
+01/05 - starting Saclapack version. 
+15/05 - selection by normalized Maha, by Anruo 
+20/05 - First Steps in Scalapack 
+15/06 - Scalapack for fiting 
+25/06 - many scalpack drivers. SVD included because it exist in LApack but not in 
+        scalapack
+01/07 - CUR using Scalapack 
+15/07 - Full Scalpack Version
+20/07 - Starts ZBL 
+01/11 - Back to ZBL in Milady  
+
+
+2021
+-------------------
+07/12 - Squared Exponential and PolyOrder kernel implemented
+07/10 - many fitting options for kernel
+07/01 - kernel started
+06/01 - PiP bond and vectors
+02/01 - pSO3, bSO3 - give the right paralerization. No weigthed.
+03/01 - G3  , G2   - give the right paralerization. No weigthed.
+07/01 - all the others  descriptors are updated: distributed memory
+08/01 - unified version for descriptors.F90
+15/01 - cleanning - the unused variables
+16/01 - gfortran compatibility
+17/01 - unified version for Amat matrix: energy and stress.
+
+
+2020
+-------------------
+10/01 - genetic version more involved in regularization
+12/02 - quadratic initial version
+20/03 - poly chaos, first steps
+10/04 - milady descriptors - only for energy. Special design adapted to neural networks.
+05/05 - Mahalanobis distance and sorting the database. Can be a good start for the neural networks.
+06/05 - quadratic version fully functional.
+-
+
+2019
+------------------
+01/01 - starting SOAP implementation
+15/02 - before SOAP we need descritors like SO3 and bispectrum-SO3
+14/03 - finished the implemetation of the SO3 and bispectrum-SO3
+02/04 - finished the implementation of SOAP
+15/04 - starting the big clean in order to remove the memory leak
+29/04 - new mode is appear and is designed to compute only the energy descriptors
+15/05 - the memory leak is solved for AFS, BSO4. Others descriptors will comes ...
+30/06 - Milady fully implemented with LAMMPS
+
+
+
+2018
+-------------------
+20/01 - prepare work-space for LML
+12/02 - reorganization needed
+20/03 - Sasha's database new design of poscar
+20/03 - deep reorganization done
+28/03 - start debug for SO4
+22/04 - finish the SO4 debug + adding neighbours for small boxes.
+25/04 - start reorganization of the code
+09/05 - finish reorganization of the code, bi-SO4, Behler, G2 and G3 confirmed
+10/05 - SNAP for energy
+23/05 - SNAP with forces
+25/05 - Sasha's new descriptor implemented, G2+biSO4
+25/05 - pre-prepare interaction with MD
+31/05 - starting interaction with MD
+09/06 - Stress implemented with snap.
+10/06 - stress coupled with MD.
+14/06 - optimization on weights,  some bugs
+14/06 - new descriptor implemented, G2 + POW4
+03/07 - fix the f*****g bug na(:ntyp) between zelda and my computer.
+10/07 - NDM NEB, PR
+25/09 - interaction with PHONDY - gamma point only
+25/10 - AFS implemented and debug
+15/11 - MTP implemented but should debug (thanks Alex).
+23/11 - weights genetic optimization done in rigurous way and no bug.
+23/11 - compatibility with snap from lammps in T/F way done
+28/11 - MTP fully implemented (not thanks Alex).
+10/12 - starting LAMMPS implementation, target: make yes-milady
+
+
+
+
+Done:
+-------------------
+25/10/2018
+7) debug AFS
+09/06/2018
+1) build snap with stress - done
+
+
+
+0) read the poscar. discriminate from simple poscar and the poscar_database.
+
+1) Some reading mode:
+Randomly /Ordered  selection
+     a. Read by specification in  DB.read   class KLM number_of_file
+        Remaining are used for validation of the potential.
+     b. Read the entire database.
+
+2) compute neighbours for small boxes.
+        a.Change the neighbor functions.
+        b.generalize for all descriptors
+
+3) write a "writting function" for general descriptor
+
+4) debug G2,G3, Behler
+
+0) I should check SO4 also for general orthorhombic shapes (for big boxes).  I have tested only for cubic.
+   Also g2 and g3 should be checked for orthorhmbic shapes:  small and big boxes.
+
+1) finish bi-SO4
+   a. energy: tested and completed
+   b. I should finish with forces: tested and completed
+
+2) build snap:
+     energy
+     forces
+     stress
+     build the matrix
+
+
+
+4) fit snap:
+     add weights
+     inverse the matrix
+     write parameters
+
+
+
+5) extrapolate snap
+    read parameters
+    read descriptors
+
+
+1) Add in db_model.
+   a. in  the  3 logical variables / per line
+      that correspond to force, energy and stress fitting T T F
+   b. the correponding weights for that line for energy and force
+
+26/05/2018
+1) Test facilities:
+      test the parameters on remaining configurations
+      compute errors for each set for test and train
+
+30/05/2018
+00) remove old style reading data from Wesley.
+path contents like that tring to read in MD mode
+ /home/marinica/Work_ML/test_ml/data/*.poscar
+
+
+5) compatible with LAMMPS
+
+
+
+Remove message: ls: cannot access '/home/marinica/Work_ML/test_ml/data/*.poscar': No such file or directory

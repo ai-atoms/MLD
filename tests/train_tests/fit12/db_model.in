@@ -1,0 +1,24 @@
+# c11
+09   111    15   15     T F T    1.e10 1.e0 1.e0 1.e0 1.e0 1.e0
+# c44
+10   111    15   15     T F T    1.e10 1.e0 1.e0 1.e0 1.e0 1.e0
+# babulk
+11   111    15   15     T F T    1.e10 1.e0 1.e0 1.e0 1.e0 1.e0
+# Deformations
+08   111    593 400     T F T    1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# MD 300K
+01   111    14   10     T T T    1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# MD 800K good a0
+17   111    12   9      T T T    1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# liquid 800K
+#04   111    40   30     T T F    1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# Surfaces
+07   111    6   6       T F F    1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# Vacancies
+05   111    19   19     T F F    1.e4 1.e0 1.e0 1.e0 1.e0 1.e0
+# SIA
+06   111    9   9       T F F    1.e4 1.e0 1.e0 1.e0 1.e0 1.e0
+# Migration 1SIA
+14   111    6    6      T T T    1.e4 1.e0 1.e0 1.e0 1.e0 1.e0
+# Migration_dislo
+15   111    9    9      T T T    1.e4 1.e0 1.e0 1.e0 1.e0 1.e0

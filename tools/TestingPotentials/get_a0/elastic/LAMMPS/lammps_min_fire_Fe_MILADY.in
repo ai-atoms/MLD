@@ -1,0 +1,43 @@
+clear
+dimension 3
+units		metal
+boundary	p p p
+atom_style	atomic
+atom_modify     map array  sort 0 0.0 
+box             tilt large
+read_data	cube.lmp
+neighbor 0.7 bin
+neigh_modify delay 10 check yes 
+
+pair_style	milady
+pair_coeff * * pot.fs Fe
+group                           Fe type 1
+mass                            1  55.845000
+
+min_style cg
+fix 1 all nve
+thermo_style custom step etotal pxx pyy pzz pxy pxz pyz
+thermo 5
+minimize                 0.0 1.0e-6 1000 10000
+thermo			500
+timestep	0.01
+min_style	fire
+variable vol_box equal vol
+variable natoms equal  atoms
+variable tenergy equal  pe
+variable sxx equal pxx
+variable syy equal pyy
+variable szz equal pzz
+variable sxy equal pxy
+variable sxz equal pxz
+variable syz equal pyz
+print "Number_of_atoms = ${natoms}"
+print "Energy_box = ${tenergy}"
+print "sig_xx = ${sxx}"
+print "sig_yy = ${syy}"
+print "sig_zz = ${szz}"
+print "sig_xy = ${sxy}"
+print "sig_xz = ${sxz}"
+print "sig_yz = ${syz}"
+print "Volume = ${vol_box}"
+write_data lammps.data

@@ -1,0 +1,190 @@
+[32m[INFO    ] mld_mpi_init ! hello world ! from rank 0 of 4 [0m
+[32m[INFO    ] 
+                       _ _           _       
+                      (_) |         | |      
+              ___ ___  _| | __ _  __| |_   _ 
+            | '_ ` _ \| | |/ _` |/ _` | | | |
+            | | | | | | | | (_| | (_| | |_| |
+            |_| |_| |_|_|_|\__,_|\__,_|\__, |
+                                        __/ |
+                                       |___/ 
+           
+           This code is under copyright & licence.
+           The distribution of the package or parts of package is not allowed.
+           Contributions A. M. Goryaeva, W. Unn-Toc, J. Baima, C. Lapointe, C. Van Wambeke
+           For more details, please contact: mihai-cosmin.marinica@cea.fr
+           
+           Compiled by
+           Intel(R) Fortran Intel(R) 64 Compiler Classic for applications running on Intel(R) 64, 
+             Version 2021.9.0 Build 20230302_000000
+           
+           Compilation at Nov 20 2023 13:31:59
+           
+           Compiler options was
+             -I/opt/intel/oneapi/mkl/2023.1.0/include 
+             -I/usr/local/iopenmpi.4.1.3/lib64 
+             -DIFORT 
+             -DML=1 
+             -DMPI_STATUSES_IGNORE=1 
+             -DPARAML=1 
+             -O3 
+             -traceback 
+             -L/opt/intel/oneapi/mkl/2023.1.0/lib/intel64 
+             -L/usr/local/iopenmpi.4.1.3/lib64 
+             -module /home/marinica/MLD_GitHub/build/mod 
+             -c 
+             -o CMakeFiles/milady_main.exe.dir/mld/main.F90.o
+           
+           Execution user is marinica
+           Execution hostname is is245844.intra.cea.fr
+           [0m
+[32m[INFO    ] file din name = vacancy.din[0m
+[32m[INFO    ] readdm: no periodic conditions[0m
+[32m[INFO    ] ML: ldemitab False, compute all pairs[0m
+[32m[INFO    ] -- DM CONFIGURATION --
+           NDM + ML
+           [0m
+[32m[INFO    ] -- CONSTRAINTS --
+           crystal generation and run
+           [0m
+[32m[INFO    ] -- NEIGHBOURS --
+           [0m
+[32m[INFO    ] For MiLady TABLE DES VOISINS COMPLETE rvois 8.50E-08 [0m
+[32m[INFO    ]      npotentiel = 1
+                ipotentiel = 20
+                   fmt_cin = 1
+           [0m
+[32m[INFO    ] read_stream iostat -1 (-1 as EOF is normal as overdimensioned buffer is expected)[0m
+[32m[INFO    ] NDM -- in init -- POTENTIALS -- with ipotential  :-1 [0m
+[32m[INFO    ] NDM -- in init -- MILADY potential[0m
+[32m[INFO    ] -- DATABASE ATOMS --
+            id element   Z     mass
+             1   74 W  74.00  183.84 
+           [0m
+[32m[INFO    ] Linear ML[0m
+[32m[INFO    ] ML: selection of random no selected configs of the database class / db line [0m
+[32m[INFO    ] NDM +  ML_BISPECTRUM_SO4[0m
+[32m[INFO    ] -- MCD / Kernel parameters --[0m
+[32m[INFO    ] number of classes for MCD 3 
+           classes for MCD 07 08 13                                                                        [0m
+[32m[INFO    ] initial type and masses in uam 1 
+           mass setting    183.84 [0m
+[32m[INFO    ] NDM  -- BUILD BOX --[0m
+[32m[INFO    ] NDM -- BUILD LATTICE  FROM  -- vacancy.gin[0m
+[32m[INFO    ] NDM -- in init -- configuration MILADY -- [0m
+[32m[INFO    ] NDM -- in init --     dmtype MILADY    -- 18 [0m
+[32m[INFO    ] NDM -- in init -- finalization of MILADY --[0m
+[32m[INFO    ] ------------------------
+           --- MACHINE LEARNING ---
+           ------------------------
+           [0m
+[32m[INFO    ] -- DATABASE ATOMS --
+            id element   Z     mass
+             1   74 W  74.00  183.84 
+           [0m
+[32m[INFO    ] Linear ML[0m
+[32m[INFO    ] ML: selection of random no selected configs of the database class / db line [0m
+[32m[INFO    ] NDM +  ML_BISPECTRUM_SO4[0m
+[32m[INFO    ] -- MCD / Kernel parameters --[0m
+[32m[INFO    ] number of classes for MCD 3 
+           classes for MCD 07 08 13                                                                        [0m
+[32m[INFO    ] descriptor bso4 has the dimension 55 [0m
+ML:|---------------------------- Review of the DB model -----------------------------|
+ML:  i_db_line    class klm           start          selected            total 
+ML:     1           05  111             1               15                  19
+ML:     2           06  111             1               16                  21
+ML:     3           07  111             1               12                  16
+ML:     4           08  111             1               17                  23
+ML:     5           09  111             1               16                  21
+ML:     6           10  111             1                5                   5
+ML:     7           11  111             1                9                   9
+ML:     8           12  111             1             1500                2000
+ML:     9           13  111             1               75                  75
+ML:    10           14  111             1               33                  33
+ML:    11           15  111             1                3                   3
+ML:    12           16  111             1                4                   4
+ML:    13           18  111             1               16                  20
+ML:|---------------------------|
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     0     0     0     1  2249
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     1     1     0     1  2249
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     2     2     0     1  2249
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     3     3     0     1  2249
+ML: the number of datapoints in train, n_train, n_E, n_F, n_S:       1721    1721       0       0
+ML: the number of datapoints in  test,  n_test, n_E, n_F, n_S:        528     528       0       0
+[32m[INFO    ] ML: in descriptors_analysis mode the descriptors force calculations are switch to .false.[0m
+ ML: the max value of the descriptor is   :   317.706861700674     
+[32m[INFO    ] ML:>>>------------All descriptors are computed -------------------------------[0m
+[32m[INFO    ] ML:>>>------------ Compute Sigma / stat dist - train  -------------------------[0m
+[32m[INFO    ] ML: before allocate Phi matrix size.....:  55 5142 [0m
+[32m[INFO    ] ML: after allocate Phi dimensions given by size...:  55 5142 [0m
+[32m[INFO    ] ML: allocate Sigma, the  sample covariance matrix......:   55 55 [0m
+[32m[INFO    ] ML:>>>---------- Compute Sigma / stat dist - test/full  -----------------------[0m
+[32m[INFO    ] ML: before allocate Phi matrix size.....:  55 19521 [0m
+[32m[INFO    ] ML: after allocate Phi dimensions given by size...:  55 19521 [0m
+[32m[INFO    ] ML: allocate Sigma, the  sample covariance matrix......:   55 55 [0m
+[31m[WARNING ] ML: scalapack_driver is .false. for CUR decomposition. Will be set to .true.[0m
+ML sca: nprocs on scalapack grid =      4
+ML sca: the blacs grid has number of row and col set to  ...........:      2      2
+[32m[INFO    ] ML:>>>-------------------------------------------------------------------------[0m
+[32m[INFO    ] ML: before allocate phia matrix size.....:  55 5142 [0m
+ML: CUR values for c-selection, k-dimension, cur_eps ......:    1000      55    0.10000D+01
+ML: CUR values for r-selection, k-dimension, cur_eps ......:     220      55    0.10000D+01
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  1 55 911 [0m
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  2 55 938 [0m
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  3 55 922 [0m
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  4 55 903 [0m
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  5 55 894 [0m
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  6 55 890 [0m
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  7 55 906 [0m
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  8 55 911 [0m
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  9 55 901 [0m
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  10 55 888 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 1   6.35E-11 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 2   4.02E-11 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 3   5.67E-11 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 4   1.22E-10 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 5   7.02E-11 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 6   8.34E-11 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 7   6.51E-11 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 8   6.35E-11 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 9   8.40E-11 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 10   5.62E-11 [0m
+[32m[INFO    ] ML: ----------- the winner is ----------> 2 [0m
+[32m[INFO    ] ML:>>>-------------------------------------------------------------------------[0m
+[32m[INFO    ] ML: before allocate phia matrix size.....:  55 19521 [0m
+ML: CUR values for c-selection, k-dimension, cur_eps ......:    4000      55    0.10000D+01
+ML: CUR values for r-selection, k-dimension, cur_eps ......:     220      55    0.10000D+01
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  1 55 3087 [0m
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  2 55 3070 [0m
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  3 55 3109 [0m
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  4 55 3103 [0m
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  5 55 3091 [0m
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  6 55 3122 [0m
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  7 55 3147 [0m
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  8 55 3101 [0m
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  9 55 3035 [0m
+[32m[INFO    ] ML: CUR no and no of row and col sel ...:  10 55 3067 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 1   1.02E-10 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 2   1.03E-10 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 3   1.12E-10 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 4   1.12E-10 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 5   9.49E-11 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 6   1.17E-10 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 7   1.19E-10 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 8   1.03E-10 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 9   1.07E-10 [0m
+[32m[INFO    ] ML: CUR trial no and Frobenius score ...: 10   1.22E-10 [0m
+[32m[INFO    ] ML: ----------- the winner is ----------> 5 [0m
+ML: analysis total ...............................:         28.591
+ML: init precomputing ........:          1.059
+ML: init compute desc ........:          8.221
+ML: Phi Sigma  train .........:          0.211
+ML: Phi Sigma  full ..........:          0.226
+ML: Sigma spectrum ...........:          0.011
+ML: PCA and dist .............:          0.298
+ML: Kernel selection .........:         18.567
+-------------------
+ xxx  
+   ----Full end----  
+ML:   ----------------c u later alligator----------------  
+ ************  END DE MACHINE LEARNING ****************

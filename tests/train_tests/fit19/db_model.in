@@ -1,0 +1,8 @@
+# @ Structural optimization
+00  001  1  1   T F F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# @ Structural optimization
+00  003  1  1   T F F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# @ MD liquid at 2500K, 1500K, 1000K
+28  001  10 10   T F F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# @ MD bcc/liquid interphase at 2500K
+29  001  10 10   T F F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0

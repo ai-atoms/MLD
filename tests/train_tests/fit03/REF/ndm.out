@@ -1,0 +1,218 @@
+[32m[INFO    ] mld_mpi_init ! hello world ! from rank 0 of 6[0m
+[32m[INFO    ] 
+                       _ _           _       
+                      (_) |         | |      
+              ___ ___  _| | __ _  __| |_   _ 
+            | '_ ` _ \| | |/ _` |/ _` | | | |
+            | | | | | | | | (_| | (_| | |_| |
+            |_| |_| |_|_|_|\__,_|\__,_|\__, |
+                                        __/ |
+                                       |___/ 
+           
+           This code is under copyright & licence.
+           The distribution of the package or parts of package is not allowed.
+           Contributions A. M. Goryaeva, W. Unn-Toc, J. Baima, C. Lapointe, C. Van Wambeke
+           For more details, please contact: mihai-cosmin.marinica@cea.fr
+           
+           Compiled by
+           Intel(R) Fortran Compiler for applications running on Intel(R) 64, 
+             Version 2025.3.0 Build 20251023
+           
+           Compilation at Feb 26 2026 08:18:35
+           
+           Compiler options was
+             -I/home/marinica/MLD_GitHub/mld_build_mix/mod 
+             -I/home/marinica/MLD_GitHub/mld_build_mix/include 
+             -I/usr/local/iopenmpi.5.0.8/include 
+             -I/usr/local/iopenmpi.5.0.8/lib64 
+             -DIFORT 
+             -DML=1 
+             -DMPI_STATUSES_IGNORE=1 
+             -DPARA=1 
+             -isystem /opt/intel/oneapi/2025.3/include 
+             -isystem /usr/local/iopenmpi.5.0.8/lib64 
+             -O3 
+             -xHost 
+             -qopt-zmm-usage=high 
+             -traceback 
+             -diag-disable=10448 
+             -L/usr/local/iopenmpi.5.0.8/lib64 
+             -module ../mod 
+             -c 
+             -o CMakeFiles/milady_main.exe.dir/mld/main.F90.o 
+           
+           Execution user is marinica
+           Execution hostname is localhost.localdomain
+           [0m
+[32m[INFO    ] file din name = vacancy.din[0m
+[32m[INFO    ] readdm: no periodic conditions[0m
+[32m[INFO    ] ML: ldemitab False, compute all pairs[0m
+[32m[INFO    ] -- DM CONFIGURATION --
+           NDM + ML
+           [0m
+[32m[INFO    ] -- CONSTRAINTS --
+           crystal generation and run
+           [0m
+[32m[INFO    ] -- NEIGHBOURS --
+           [0m
+[32m[INFO    ] For MiLady TABLE DES VOISINS COMPLETE rvois 8.50E-08 [0m
+[32m[INFO    ]      npotentiel = 1
+                ipotentiel = 20
+                   fmt_cin = 1
+           [0m
+[32m[INFO    ] read_stream iostat -1 (-1 as EOF is normal as overdimensioned buffer is expected)[0m
+[32m[INFO    ] ML: oNDM -- in init -- POTENTIALS -- with ipotential  : -1 [0m
+[32m[INFO    ] ML: oNDM -- in init ---- continue -- with ipotential  : 20 [0m
+[32m[INFO    ] ML: oNDM -- before  md_init_potential_ml -- MILADY potential[0m
+[32m[INFO    ] -- DATABASE ATOMS --
+            id element   Z     mass
+             1   74 W  74.00  183.84 
+           [0m
+[32m[INFO    ] Quadratic ML[0m
+[32m[INFO    ] QML - LINEAR PRECONDITION[0m
+[32m[INFO    ] ML: selection of the first no selected configs of the database class / db line [0m
+[32m[INFO    ] Machine Learning type with linear basis, LML[0m
+[32m[INFO    ] NDM +  ML_BISPECTRUM_SO4[0m
+[32m[INFO    ] ML: read_ml_file in MD_mode ... done [0m
+[32m[INFO    ] ML: alloc_typ_ml in MD_mode ... done [0m
+[31m[WARNING ] ML: MD_mode Chemical and type are not fixed in MD mode. More than one type nyp = 1 is DANGEROUS[0m
+[32m[INFO    ] ML: MD_mode initial type and masses in uam 1 
+           mass setting    183.84 [0m
+[32m[INFO    ] ML: oNDM init -- in init -- configuration MILADY -- [0m
+[32m[INFO    ] ML: oNDM init -- in init --     dmtype MILADY    -- 18 [0m
+[32m[INFO    ] ML: oNDM init -- in init -- finalization of init --[0m
+[32m[INFO    ] ------------------------
+           --- MACHINE LEARNING ---
+           ------------------------
+           [0m
+[32m[INFO    ] -- DATABASE ATOMS --
+            id element   Z     mass
+             1   74 W  74.00  183.84 
+           [0m
+[32m[INFO    ] Quadratic ML[0m
+[32m[INFO    ] QML - LINEAR PRECONDITION[0m
+[32m[INFO    ] ML: selection of the first no selected configs of the database class / db line [0m
+[32m[INFO    ] Machine Learning type with linear basis, LML[0m
+[32m[INFO    ] NDM +  ML_BISPECTRUM_SO4[0m
+[32m[INFO    ] descriptor bso4 has the dimension 14 [0m
+[32m[INFO    ] ML: descriptors will NOT be written[0m
+[32m[INFO    ] ML: descriptors will be written in EML format[0m
+ML:|---------------------------- Review of the DB model -----------------------------|
+ML:  i_db_line    class klm           start          selected            total 
+ML:     1           01  111             1              100                 130
+ML:     2           02  111             1              100                 122
+ML:     3           03  111             1              100                 100
+ML:     4           04  111             1               45                  60
+ML:     5           05  111             1               15                  19
+ML:     6           06  111             1               16                  21
+ML:     7           07  111             1               12                  16
+ML:     8           08  111             1               17                  23
+ML:     9           09  111             1               16                  21
+ML:    10           10  111             1                5                   5
+ML:    11           12  111             1             1500                2000
+ML:    12           13  111             1               75                  75
+ML:|---------------------------|
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     0     0     0     1  2592
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     3     3     0     1  2592
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     2     2     0     1  2592
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     5     5     0     1  2592
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     1     1     0     1  2592
+ML grid info w-rank, sub-rank, id-sub, i_start_conf, ifinal_conf :     4     4     0     1  2592
+ML: the number of datapoints in train, n_train, n_E, n_F, n_S:      95220    2001   83643    9576
+[32m[INFO    ] ML: The number of fit parameters are exactly:  211 [0m
+ ML: the max value of the descriptor is   :   205.449741075978     
+ML: after SVD...............................
+ML: dgelsd SVD inversion info Mline Ncolm lwork RCOND RANK ....:   0      15      15   1743   -0.1000000000D+01    15
+ML: after SVD...............................
+ML: dgelsd SVD inversion info Mline Ncolm lwork RCOND RANK ....:   0     196     196  17730   -0.1000000000D+01    76
+ML:        ERROR TYPE                             R^2             D             RMSE          MAE    
+ML: stat  Total_Energy            train:       0.998821       1.000028       0.238741       0.075645
+ML: stat  Total_Energy_per_atom   train:       0.988196       1.033975       0.024453       0.012062
+ML: stat  Force_each_component    train:       0.980649       1.009032       0.149325       0.096671
+ML: stat  Stress_virial           train:       0.910238       1.379782       0.031795       0.020869
+ ML: Writing parameters in write_snap_parameters
+[32m[INFO    ] ML: The parameters were wrote ...[0m
+ML: the number of datapoints in  test,  n_test, n_E, n_F, n_S:      17025     591   13404    3030
+ML: stat  Total_Energy             test:       0.998624       1.000263       0.244743       0.070832
+ML: stat  Total_Energy_per_atom    test:       0.982984       0.975024       0.024840       0.012825
+ML: stat  Force_each_component     test:       0.979041       1.045549       0.206745       0.143088
+ML: stat  Stress_virial            test:       0.918720       1.390044       0.032324       0.021750
+ML:|---------------------------- Errors by class -----------------------------|
+ML: class Total_Energy             01  :       0.991236       1.018330       0.469432       0.356490
+ML: class Total_Energy_per_atom    01  :       0.991236       1.018330       0.009988       0.007585
+ML: class Force_each_component     01  :       0.943228       1.018205       0.277448       0.197361
+ML: class Stress_virial            01  :       --       
+ -- 
+ML: class Total_Energy             02  :       0.992382       1.158844       0.399423       0.272922
+ML: class Total_Energy_per_atom    02  :       0.992382       1.158844       0.033285       0.022744
+ML: class Force_each_component     02  :       --       
+ML: class Stress_virial            02  :       --       
+ -- 
+ML: class Energy                   03  :       --       
+ML: class Total_Energy_per_atom    03  :       --       
+ML: class Force_each_component     03  :       --       
+ML: class Stress_virial            03  :       --       
+ -- 
+ML: class Total_Energy             04  :       0.983015       1.444657       1.229881       0.971319
+ML: class Total_Energy_per_atom    04  :       0.983015       1.444657       0.102490       0.080943
+ML: class Force_each_component     04  :       --       
+ML: class Stress_virial            04  :       --       
+ -- 
+ML: class Total_Energy             05  :       0.999738       1.210188       0.117809       0.098750
+ML: class Total_Energy_per_atom    05  :       0.999738       1.210188       0.000928       0.000778
+ML: class Force_each_component     05  :       0.941509       1.010236       0.302472       0.215420
+ML: class Stress_virial            05  :       --       
+ -- 
+ML: class Total_Energy             06  :       0.999912       1.123308       0.076709       0.066259
+ML: class Total_Energy_per_atom    06  :       0.999912       1.123308       0.000609       0.000526
+ML: class Force_each_component     06  :       0.942543       1.007527       0.281891       0.196884
+ML: class Stress_virial            06  :       --       
+ -- 
+ML: class Total_Energy             07  :       0.998307       0.876390       0.132466       0.111455
+ML: class Total_Energy_per_atom    07  :       0.998307       0.876390       0.001035       0.000871
+ML: class Force_each_component     07  :       0.942657       1.007679       0.302647       0.215483
+ML: class Stress_virial            07  :       --       
+ -- 
+ML: class Total_Energy             08  :       0.992288       4.591884       0.084989       0.084803
+ML: class Total_Energy_per_atom    08  :       0.992288       4.591884       0.000664       0.000663
+ML: class Force_each_component     08  :       0.942256       0.998528       0.281532       0.200654
+ML: class Stress_virial            08  :       --       
+ -- 
+ML: class Total_Energy             09  :       0.994490       3.509472       0.665205       0.662685
+ML: class Total_Energy_per_atom    09  :       0.994490       3.509472       0.005197       0.005177
+ML: class Force_each_component     09  :       0.941782       1.008226       0.281967       0.196888
+ML: class Stress_virial            09  :      -0.164056       1.008733       0.005633       0.004277
+ -- 
+ML: class Energy                   10  :       --       
+ML: class Total_Energy_per_atom    10  :       --       
+ML: class Force_each_component     10  :       --       
+ML: class Stress_virial            10  :       --       
+ -- 
+ML: class Total_Energy             12  :       0.964949       0.794466       0.018952       0.011197
+ML: class Total_Energy_per_atom    12  :       0.964949       0.794466       0.018952       0.011197
+ML: class Force_each_component     12  :       --       
+ML: class Stress_virial            12  :       0.919128       1.390446       0.032480       0.021924
+ -- 
+ML: class Energy                   13  :       --       
+ML: class Total_Energy_per_atom    13  :       --       
+ML: class Force_each_component     13  :       --       
+ML: class Stress_virial            13  :       --       
+ -- 
+ML:------------------REPORTING TIME---------------------------
+ML: Full DB read time ............................:          0.020
+ML: TRAIN TIME ...................................:          2.918
+ML: time for searching neighbours ......:          1.837
+ML: time for computing desc ............:          0.659
+ML: time for fillig the local design matrix ....:          0.237
+ML: time for filling the global design matrix ....:          0.184
+ML: filling  global y ........:          0.000
+ML: filling  global Amat .....:          0.135
+ML: filling  global obj ......:          0.049
+ML: time for fitting params ............:          0.659
+ML: TEST TIME ....................................:          0.682
+ML: time for searching neighbours ......:          0.477
+ML: time for computing desc ............:          0.136
+ML: time for evaluation ................:          0.046
+   ----Full end----  
+ML:   ----------------c u later alligator----------------  
+ ************  END DE MACHINE LEARNING ****************

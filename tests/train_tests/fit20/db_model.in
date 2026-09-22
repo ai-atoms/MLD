@@ -1,0 +1,42 @@
+# GSF VAC  $    vac in gsf
+#01   111    130   100   T T F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# gsf
+#02   111    122   100   T F F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+#  dislo
+#03   111    100   100   T T F   1.e3 1.e0 1.e0 1.e0 1.e0 1.e0
+# free surfaces 
+04   111    60   45     T F F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# MD 1000K 1 vac
+05   111    19   15     T T F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# MD 1000K 2 vac
+#06   111    21   16     T T F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# MD 3000K bulk
+07   111    16   12     T T F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# MD 300K bulk
+#08   111    23   17     T T F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# MD 1000K bulk
+09   111    21   16     T T T   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# 1Vac-4Vac + bulk
+#10   111    5   5       T F T   5.e4 1.e0 1.e0 1.e0 1.e0 1.e0
+# SIA
+#11   111    9   9       T F F   1.e4 1.e0 1.e0 1.e0 1.e0 1.e0
+# deformations
+12   111    2000  1500  T F T   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# elastic bcc deformations
+13   111    75   75     T F T   2.e8 1.e0 1.e0 1.e0 1.e0 1.e0
+# elastic fcc deformations
+#14   111    33   33     T F T   1.e1 1.e0 1.e0 1.e0 1.e0 1.e0
+# saddle mono-vac 53 atoms
+#15   111    3   3       T T F   1.e4 1.e0 1.e0 1.e0 1.e0 1.e0
+# Dislo
+#16   111    4   4       T T F   1.e5 1.e1 1.e0 1.e0 1.e0 1.e0
+# crazy MD with vac 300K
+#17   111    15  12      T T F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# MD liquid 1000K 
+#18   111    20  16      T T F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# MD liquid 3000K
+#19   111    20  16      T T F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# Some rest at 0 K from minimizations (2vac neighbour)
+#20   111    3   3       T T F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0
+# crazy MD with vac 3000 K 
+#21   110    16  12      T T F   1.e0 1.e0 1.e0 1.e0 1.e0 1.e0

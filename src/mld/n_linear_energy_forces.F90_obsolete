@@ -1,0 +1,447 @@
+subroutine init_nlinear
+  use module_n_linear, only: order_nlinear, epsa_order, dim_allocate_nl
+  implicit none
+
+!This is the structure of epsa_order: \epasilon^(n,p)
+! linear  -> (1,1)
+! 1       -> (2,1), 2 ->(2,2)
+! 3       -> (3,1), 4 ->(3,2), 5 ->(3,3)
+! 6       -> (1,4), 7 ->(2,4), 8 ->(3,4), 9->(4,4)
+! 10      -> (1,5), 11->(2,5), 12->(2,5), 13->(3,5), 14->(4,5), 15->(5,5)
+  if (order_nlinear==2) dim_allocate_nl = 2
+  if (order_nlinear==3) dim_allocate_nl = 5
+  if (order_nlinear==4) dim_allocate_nl = 9
+  if (order_nlinear==5) dim_allocate_nl = 15
+
+  if (allocated(epsa_order)) deallocate(espa_order) ; allocate(epsa_order(dim_allocate_nl))
+  if (allocated(nl_w_params)) deallocate(nl_w_params); nl_w_params(dim_allocate_nl, dim_xdesc)
+
+  return
+end subroutine init_nlinear
+
+
+!$-------------------------------------------------------------
+subroutine nlinear_energy (iconf, fit_patch_opt)
+!$-------------------------------------------------------------
+use module_n_linear, only: epsa, epsa_order, nl_w_params
+use ml_in_ndm_module, only: i_start_at, i_final_at
+use temporary_data_cov, only:  dim_xdesc
+use derived_types, only: config_real
+implicit none
+logical, intent(in), optional :: fit_patch_opt
+integer, intent(in) :: iconf
+real(kind(0.d0)) :: tmp,ip,ja
+real(kind(1.d0)), dimension(dim_xdesc) :: Dtmp
+logical :: fit_patch
+
+fit_patch=.false.
+f (present(fit_patch_opt)) fit_patch = fit_patch_opt
+
+
+epse_2=0.d0
+epse_3=0.d0
+epse_4=0.d0
+epse_5=0.d0
+
+if (fit_patch) then
+  if (order_nlinear==2) then
+    if (allocated(dw_epsa_2)) deallocate(dw_epsa_2) ; dw_epsa_2(dim_xdesc, 1:2)
+    dw_epsa_2(1:dim_xdesc,1:2) = 0.d0
+  end if
+
+  if (order_nlinear==3) then
+    if (allocated(dw_epsa_3)) deallocate(dw_epsa_3) ; dw_epsa_3(dim_xdesc, 3:5)
+    dw_epsa_3(1:dim_xdesc,3:5) = 0.d0
+  end if
+
+end if
+
+do ja=i_start_at, i_final_at
+  Dtmp(1:dim_xdesc)=config_desc(iconf)%energy(1:dim_xdesc, ja)
+  do ip=1,size(nl_w_params,1)
+    epsa_order(ip)=SUM(Dtmp(1:dim_xdesc),nl_w_params(ip,1:dim_xdesc))
+  end do
+  if (order_nlinear==2) epsa_2 = epsa_2 + epsa_order(1)  * epsa_order(2)
+  if (order_nlinear==3) epsa_3 = epsa_3 + epsa_order(3)  * epsa_order(4)  * epsa_order(5)
+  if (order_nlinear==4) epsa_4 = epsa_4 + epsa_order(6)  * epsa_order(7)  * epsa_order(8) * epsa_order(9)
+  if (order_nlinear==5) epsa_5 = epsa_5 + epsa_order(10) * epsa_order(11) * epsa_order(12) * &
+                                              epsa_order(13) * epsa_order(14) * epsa_order(15)
+
+  epsa = epsa_2 + epsa_3 + epsa_4 + epsa_5
+
+
+  if (fit_patch) then
+
+    !
+    if (order_nlinear == 2 ) then
+      dw_epsa_2(1:dim_xdesc,1) = dw_epsa2(1:dim_xdesc,1) +   Dtmp(1:dim_xdesc) * epsa_order(2)
+      dw_epsa_2(1:dim_xdesc,2) = dw_epsa2(1:dim_xdesc,2) +   epsa_order(1)*Dtmp(1:dim_xdesc)
+    end if
+    !
+    if (order_nlinear == 3 ) then
+      dw_epsa_3(1:dim_xdesc,3) = dw_epsa_3(1:dim_xdesc,3) +   Dtmp(1:dim_xdesc) * epsa_order(4)    *epsa_order(5)
+      dw_epsa_3(1:dim_xdesc,4) = dw_epsa_3(1:dim_xdesc,4) +   epsa_order(3)     * Dtmp(1:dim_xdesc)*epsa_order(5)
+      dw_epsa_3(1:dim_xdesc,5) = dw_epsa_3(1:dim_xdesc,5) +   epsa_order(3)     * epsa_order(4)    *Dtmp(1:dim_xdesc)
+     end if
+     !
+  end if
+
+end do  ! end ja loop ...
+
+
+
+deallocate(Dtmp)
+
+
+return
+end subroutine nlinear_energy
+!<-------------------------------------------------------------
+
+!$-------------------------------------------------------------
+subroutine nlinear_force (iconf)
+!$-------------------------------------------------------------
+use module_n_linear, only: epsa, epsa_order, nl_w_params
+use ml_in_ndm_module, only: i_start_at, i_final_at
+use temporary_data_cov, only:  dim_xdesc
+use derived_types, only: config_real
+implicit none
+integer, intent(in) :: iconf
+real(kind(0.d0)) :: tmp,ip,ja
+real(kind(1.d0)), dimension(dim_xdesc) :: Dtmp
+
+epse_2=0.d0
+epse_3=0.d0
+epse_4=0.d0
+epse_5=0.d0
+
+do ja=i_start_at, i_final_at
+  Dtmp(1:dim_xdesc)=config_desc(iconf)%energy(1:dim_xdesc, ja)
+  Dtmp(1:dim_xdesc)=config_desc(iconf)%energy(1:dim_xdesc, ja)
+  do ip=1,size(nl_w_params,1)
+      epsa_order(ip)=DOT_PRODUCT(Dtmp(1:dim_xdesc),nl_w_params(ip,1:dim_xdesc))
+    d_epsa_order(ip)=SUM(Dtmp(1:dim_xdesc),nl_w_params(ip,1:dim_xdesc))
+  end do
+  if (order_nlinear==2) epsa_2 = epsa_2 + epsa_order(1)  * epsa_order(2)
+  if (order_nlinear==3) epsa_3 = epsa_3 + epsa_order(3)  * epsa_order(4)  * epsa_order(5)
+  if (order_nlinear==4) epsa_4 = epsa_4 + epsa_order(6)  * epsa_order(7)  * epsa_order(8) * epsa_order(9)
+  if (order_nlinear==5) epsa_5 = epsa_5 + epsa_order(10) * epsa_order(11) * epsa_order(12) * &
+                                              epsa_order(13) * epsa_order(14) * epsa_order(15)
+
+  epsa(ja) = epsa_2 + epsa_3 + epsa_4 + epsa_5
+end do
+
+deallocate(Dtmp)
+
+            do inn =1, config_desc(iconf)%n_neigh(ja)
+              do ix=1,3
+               force_nl  = config_desc(iconf)%force(:,ja,inn,ix)
+              end do
+            end do
+
+return
+end subroutine nlinear_force
+!<-------------------------------------------------------------
+
+!$-------------------------------------------------------------
+subroutine linear_pack_energy_descriptor (iconf)
+!$-------------------------------------------------------------
+use ml_in_ndm_module, only: debug, rangml
+use temporary_data_cov, only:  dim_xdesc
+use derived_types, only: config_desc, config_real
+implicit none
+integer, intent(in) :: iconf
+character(len=80) :: name_sub_local="linear_pack_energy_descriptor"
+if (debug) then
+  if (rangml==0) write(6,'("ML:.............enter in   :",a)') trim(name_sub_local)
+end if
+
+    if (allocated(config_desc(iconf)%pack_energy))                deallocate(config_desc(iconf)%pack_energy );           allocate(config_desc(iconf)%pack_energy(dim_xdesc))
+    config_desc(iconf)%pack_energy(1:dim_xdesc)=SUM(config_desc(iconf)%energy(1:dim_xdesc,1:config_real(iconf)%nat), dim=2)
+
+if (debug) then
+  if (rangml==0) write(6,'("ML:.............out from   :",a)') name_sub_local
+end if
+return
+end subroutine linear_pack_energy_descriptor
+!<-------------------------------------------------------------
+
+!this can be done PARA_UPDATE
+!$-------------------------------------------------------------
+subroutine quadratic_pack_energy_descriptor (iconf)
+!$-------------------------------------------------------------
+!The energy is packed in the vectors pack_energy and pack_energy_quadratic
+!       the pack_energy_quadratic with the following structure
+!        |          ... pack_energy_quadratic ...  |
+!        | ...  dim_xdesc  ... | ... dim_xdesc*dim_xdesc ... |
+!For compatibility reason we keep also pack_energy
+!            pack_energy =  | ...  dim_xdesc  ... |
+!---------------------------------------------------------------
+use ml_in_ndm_module,only: debug, rangml
+use temporary_data_cov, only:  dim_xdesc
+use derived_types, only: config_desc, config_real
+use module_mld_quadratic, only: dim_xdesc_quadratic
+implicit none
+integer, intent(in) :: iconf
+real(kind=kind(0.d0)), dimension(dim_xdesc,1) :: Dtmp
+integer :: ik, id1, id2, indx
+character(len=80) :: name_sub_local="quadratic_pack_energy_descriptor"
+if (debug) then
+  if (rangml==0) write(6,'("ML:.............enter in   :",a)') trim(name_sub_local)
+end if
+
+
+if (allocated(config_desc(iconf)%pack_energy))                deallocate(config_desc(iconf)%pack_energy);           allocate(config_desc(iconf)%pack_energy(dim_xdesc))
+if (allocated(config_desc(iconf)%pack_energy_quadratic ))     deallocate(config_desc(iconf)%pack_energy_quadratic); allocate(config_desc(iconf)%pack_energy_quadratic(dim_xdesc_quadratic-1))
+
+
+
+!if (allocated(config_desc(iconf)%energy_quadratic ))     deallocate(config_desc(iconf)%energy_quadratic ); allocate(config_desc(iconf)%energy_quadratic(dim_xdesc_quadratic-dim_xdesc-1, config_real(iconf)%nat))
+!The quadratic pack_energy_quadratic  part ....
+!     | ... dim_xdesc ... | ... pack_energy_quadratic(dim_xdesc*dim_xdesc) ... |
+config_desc(iconf)%pack_energy_quadratic(:)=0.d0
+do ik=1, config_real(iconf)%nat
+
+  Dtmp(1:dim_xdesc,1)=config_desc(iconf)%energy(1:dim_xdesc, ik)
+
+
+  do id1=1,dim_xdesc
+    indx=id1
+    !This_is_huge...
+    config_desc(iconf)%pack_energy_quadratic(indx) = config_desc(iconf)%pack_energy_quadratic(indx) + Dtmp(id1,1)
+    !This_is_huge...
+  end do
+
+  do id1=1,dim_xdesc
+    do id2=1,dim_xdesc
+      indx =dim_xdesc*(id1-1) + id2 - 1 + dim_xdesc + 1
+      !This_is_huge...
+      config_desc(iconf)%pack_energy_quadratic(indx) = config_desc(iconf)%pack_energy_quadratic(indx) + Dtmp(id1,1)*Dtmp(id2,1)
+      !This_is_huge...
+    end do
+  end do
+
+end do
+!The linear pack_energy part .... for compatibility reasons ...
+!     | ... pack_energy(dim_xdesc) ... |
+config_desc(iconf)%pack_energy(1:dim_xdesc)=config_desc(iconf)%pack_energy_quadratic(1:dim_xdesc)
+
+if (debug) then
+  if (rangml==0) write(6,'("ML:.............out from   :",a)') name_sub_local
+end if
+return
+end subroutine quadratic_pack_energy_descriptor
+!<-------------------------------------------------------------
+
+
+!this can be done PARA_UPDATE
+!$-------------------------------------------------------------
+subroutine polyc_pack_energy_descriptor (iconf)
+!$-------------------------------------------------------------
+!$-------------------------------------------------------------
+!The energy is packed in the vectors pack_energy and pack_energy_quadratic
+!       the pack_energy_quadratic with the following structure
+!        |          ... pack_energy_quadratic ...  |
+!        | ...  dim_xdesc  ... | ... dim_xdesc*dim_xdesc ... |
+!For compatibility reason we keep also pack_energy
+!            pack_energy =  | ...  dim_xdesc  ... |
+!---------------------------------------------------------------
+use ml_in_ndm_module, only: rangml, debug, polyc_n_poly, polyc_n_hermite
+use temporary_data_cov, only:  dim_xdesc
+use derived_types, only: config_desc, config_real
+use module_mld_polyc, only: dim_xdesc_polyc
+use math,  only: hermite
+implicit none
+integer, intent(in) :: iconf
+real(kind=kind(0.d0)), dimension(polyc_n_hermite, dim_xdesc,1) :: Dtmp
+real(kind=kind(0.d0)) :: y_her, d_y_her
+integer :: ik, id1, id2, id3, indx, nord
+character(len=80) :: name_sub_local="polyc_pack_energy_descriptor"
+if (debug) then
+  if (rangml==0) write(6,'("ML:.............enter in   :",a)') trim(name_sub_local)
+end if
+
+
+if (allocated(config_desc(iconf)%pack_energy))                 deallocate(config_desc(iconf)%pack_energy );   allocate(config_desc(iconf)%pack_energy(dim_xdesc))
+if (allocated(config_desc(iconf)%pack_energy_polyc))     deallocate(config_desc(iconf)%pack_energy_polyc );   allocate(config_desc(iconf)%pack_energy_polyc(dim_xdesc_polyc-1))
+
+
+!The linear pack_energy part ....
+!     | ... pack_energy(dim_xdesc) ... | ... dim_xdesc*dim_xdesc ... |
+!config_desc(iconf)%pack_energy(1:dim_xdesc)=SUM(config_desc(iconf)%energy(1:dim_xdesc,1:config_real(iconf)%nat), dim=2)
+
+
+!The  energy_polyc  part ....
+!     | ... dim_xdesc ... | ... pack_energy_polyc(dim_xdesc_polyc) ... |
+config_desc(iconf)%pack_energy_polyc(:)=0.d0
+do ik=1, config_real(iconf)%nat
+
+  do nord = 1 , polyc_n_hermite
+    do id1 = 1, dim_xdesc
+      call hermite(nord, config_desc(iconf)%energy(id1,ik), y_her, d_y_her)
+      Dtmp(nord, id1,1)=y_her
+    end do
+  end do
+
+
+  indx=0
+  !........... polyc_n_poly = 1
+  if (polyc_n_poly >=  1) then
+    do nord  = 1, polyc_n_hermite
+      do id1 = 1, dim_xdesc
+        indx = indx +1
+        config_desc(iconf)%pack_energy_polyc(indx) = config_desc(iconf)%pack_energy_polyc(indx) + Dtmp(nord, id1, 1)
+      end do
+    end do
+  end if
+
+  !........... polyc_n_poly = 2
+  if (polyc_n_poly >= 2) then
+    do nord = 1, polyc_n_hermite
+      do id1=1,dim_xdesc
+        do id2=1,dim_xdesc
+          indx = indx + 1
+          config_desc(iconf)%pack_energy_polyc(indx)= config_desc(iconf)%pack_energy_polyc(indx) +  Dtmp(nord,id1,1)*Dtmp(nord,id2,1)
+        end do
+      end do
+    end do
+  end if
+
+
+  !........... polyc_n_poly = 3
+  if (polyc_n_poly >= 3) then
+    do nord = 1, polyc_n_hermite
+      do id1=1,dim_xdesc
+        do id2=1,dim_xdesc
+          do id3 = 1, dim_xdesc
+            indx = indx + 1
+            config_desc(iconf)%pack_energy_polyc(indx) =  config_desc(iconf)%pack_energy_polyc(indx) + Dtmp(nord,id1,1)*Dtmp(nord,id2,1)*Dtmp(nord,id3,1)
+          end do
+        end do
+      end do
+    end do
+  end if
+
+end do !end loop over ik the atom index.
+
+config_desc(iconf)%pack_energy(1:dim_xdesc)=config_desc(iconf)%pack_energy_polyc(1:dim_xdesc)
+
+
+if (debug) then
+  if (rangml==0) write(6,'("ML:.............out from   :",a)') name_sub_local
+end if
+return
+end subroutine polyc_pack_energy_descriptor
+!<-------------------------------------------------------------
+
+
+
+
+
+!$-------------------------------------------------------------
+subroutine train_fill_Amat_with_energy(iconf, pack_opt)
+!$-------------------------------------------------------------
+use ml_in_ndm_module, only: rangml, debug, mld_order, mld_linear, mld_linear_extended, mld_quadratic, mld_polyc
+use temporary_data_cov, only: xdesc_train, yfunc_train,  dim_xdesc
+use derived_types, only: config_desc, config_real
+use snap, only: ymat, Amat, i_fit_snap, fit_snap,weights_snap, dim_xdesc_linear
+use module_mld_quadratic, only: dim_xdesc_quadratic
+use module_mld_polyc, only: dim_xdesc_polyc
+use module_db_poscar, only: iread_energy
+
+implicit none
+integer, intent(in) :: iconf
+integer ::  i_fit_snap_end
+!integer :: i
+!real(kind(0.d0)) :: tmp(1:dim_xdesc)
+logical, intent(in), optional :: pack_opt
+logical :: lpack_tmp
+character(len=80) :: name_sub_local="train_fill_Amat_with_force"
+if (debug) then
+  if (rangml==0) write(6,'("ML:.............enter in   :",a)') trim(name_sub_local)
+end if
+
+lpack_tmp=.true.
+if (present(pack_opt)) lpack_tmp = pack_opt
+
+if (.not.(config_real(iconf)%has_energy)) return
+i_fit_snap = i_fit_snap + 1
+i_fit_snap_end = i_fit_snap
+if (lpack_tmp) call snap_pack_energy_descriptor(iconf)
+
+
+!This_is_huge...
+xdesc_train(1:dim_xdesc,i_fit_snap) = config_desc(iconf)%pack_energy(1:dim_xdesc)
+!This_is_huge...
+
+!set y and the characteristic of the fit for this line:
+yfunc_train(i_fit_snap) = config_real(iconf)%energy(iread_energy)
+fit_snap(i_fit_snap)%iconf = iconf
+fit_snap(i_fit_snap)%energy = .true.
+fit_snap(i_fit_snap)%weight = config_real(iconf)%w_e
+weights_snap(i_fit_snap) = config_real(iconf)%w_e
+
+
+Amat(1,i_fit_snap) = config_real(iconf)%nat
+if ( (mld_order==mld_linear).or.(mld_order==mld_linear_extended) ) then
+    !Amat = | N | ... dim_xdesc ... | -> i_fit_snap
+    !call linear_fill_energy_from_xdesc_train(iconf)
+    Amat(2:dim_xdesc_linear,i_fit_snap) = config_desc(iconf)%pack_energy(1:dim_xdesc_linear-1)
+end if
+
+if (mld_order==mld_quadratic) then
+    !Amat = | N | ... dim_xdesc ... | ... dim_xdesc*dim_xdesc ... | -> i_fit_snap
+    !call quadratic_fill_energy_from_xdesc_train(iconf)
+    Amat(2:dim_xdesc_quadratic, i_fit_snap) = config_desc(iconf)%pack_energy_quadratic(1:dim_xdesc_quadratic-1)
+end if
+
+if (mld_order==mld_polyc) then
+    !Amat = | N | ... dim_xdesc ... | ... dim_xdesc_polyc ... | -> i_fit_snap
+    !call polyc_fill_energy_from_xdesc_train(iconf)
+    Amat(2:dim_xdesc_polyc, i_fit_snap) = config_desc(iconf)%pack_energy_polyc(1:dim_xdesc_polyc-1)
+end if
+
+
+ymat(i_fit_snap,1) = yfunc_train(i_fit_snap)
+i_fit_snap = i_fit_snap_end
+
+if (debug) then
+  if (rangml==0) write(6,'("ML:.............out from   :",a)') name_sub_local
+end if
+return
+end subroutine train_fill_Amat_with_energy
+!<-------------------------------------------------------------
+
+
+
+
+!$-------------------------------------------------------------
+subroutine train_fill_Bmat_constraints (iconf)
+!$-------------------------------------------------------------
+use ml_in_ndm_module, only: debug, rangml
+use temporary_data_cov, only: dim_xdesc
+use derived_types, only: config_desc, config_real
+use snap, only: Bmat, zmat, i_constraints_snap
+use module_db_poscar, only: iread_energy
+implicit none
+integer, intent(in) :: iconf
+character(len=80) :: name_sub_local="train_fill_Bmat_constraints"
+if (debug) then
+  if (rangml==0) write(6,'("ML:.............enter in   :",a)') trim(name_sub_local)
+end if
+!integer :: i
+!real(kind(0.d0)) :: tmp(1:dim_xdesc)
+
+  if (.not.(config_real(iconf)%has_energy)) return
+  i_constraints_snap = i_constraints_snap + 1
+  Bmat(1,i_constraints_snap) = dble(config_real(iconf)%nat)
+  Bmat(2:dim_xdesc+1,i_constraints_snap)= SUM(config_desc(iconf)%energy(1:dim_xdesc,1:config_real(iconf)%nat), dim=2)
+  zmat(i_constraints_snap,1) = config_real(iconf)%energy(iread_energy)
+
+
+
+if (debug) then
+  if (rangml==0) write(6,'("ML:.............out from   :",a)') name_sub_local
+end if
+return
+end subroutine train_fill_Bmat_constraints
+!<-------------------------------------------------------------

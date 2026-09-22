@@ -1,0 +1,1 @@
+rm -rf descDB vacancy.din.save vacancy.iiiiiiiii.mol vacancy.000000000.mol old_input.ml train_files.milady

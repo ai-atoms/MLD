@@ -1,0 +1,6 @@
+#!/bin/bash
+rm -rf a0.txt  babulk    bulk   bulk_fit.gp      c11_fit.gif  c11_summary  c44_fit.gp   c44_summary  gnuplot.report    
+rm -rf babulk_volume_energ  bulk_fit.dat  bulk_input_eos.dat  c11_fit.gp   c44    c44_fit.log        cxx.txt      
+rm -rf gnuplot.report_bulk  lammps.in
+rm -rf a0.txt       breport.lammps       bulk_fit.gif  c11   
+rm -rf c11_fit.log  c44_fit.gif  c44_report.lammps  data.eosout   responses.txt
