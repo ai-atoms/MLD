@@ -211,13 +211,13 @@ python local_small_test.py clean   # remove generated files
 
 ## Repository layout
 
-```text
-src/            Fortran sources (mld/, ndm/, scatools/, …) and build scripts (src/scripts/)
-cmake_files/    CMake modules
-examples/       Step-by-step example runs
-tests/          Regression test suite
-tools/          Potential-validation tools for LAMMPS
-```text
+| Folder | Content |
+|--------|---------|
+| [`src/`](src) | Fortran sources (`mld/`, `ndm/`, `scatools/`, …) and build scripts (`src/scripts/`) |
+| [`cmake_files/`](cmake_files) | CMake modules |
+| [`examples/`](examples) | Step-by-step example runs |
+| [`tests/`](tests) | Regression test suite |
+| [`tools/`](tools) | Potential-validation tools for LAMMPS |
 
 ## Publications
 
